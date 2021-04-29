@@ -12,6 +12,9 @@ import * as mutations 					from '../../cache/mutations';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
+import { useLocation, useHistory }		from "react-router-dom";
+import MapChart 						from '../Maps/MapCharts';
+import ReactTooltip from "react-tooltip";
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
@@ -20,14 +23,16 @@ import { UpdateListField_Transaction,
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
 const Homescreen = (props) => {
-
+	let history = useHistory();
 	let todolists 							= [];
 	let ctrlPress							= 0;
+	const [content, setContent] 			= useState("");
 	const [activeList, setActiveList] 		= useState({});
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [swapTopIndex, toggleTopIndex] 	= useState(-1);
 	const [runId, toggleRunId] 				= useState(0);	
+	const [runListId, toggleRunListId]		= useState(0);
 	const [showUpdate, toggleShowUpdate]	= useState(false);
 	const [, updateState] = React.useState();
 	const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -64,13 +69,12 @@ const Homescreen = (props) => {
 			}
 		}
 	}
-
 	const tpsUndo = async () => {
 		const retVal = await props.tps.undoTransaction();
 		refetchTodos(refetch);
 		return retVal;
 	}
-
+	
 	const tpsRedo = async () => {
 		const retVal = await props.tps.doTransaction();
 		refetchTodos(refetch);
@@ -161,7 +165,8 @@ const Homescreen = (props) => {
 	}
 	const createNewList = async () => {
 		const length = todolists.length
-		const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
+		const id = runListId;
+		toggleRunListId(runListId+1);
 		let list = {
 			_id: '',
 			id: id,
@@ -191,6 +196,7 @@ const Homescreen = (props) => {
 	const swapToTop = async (swapId) =>
 	{
 		let index = -1;
+		console.log("todolistlength: ", todolists.length);
 		for(let i = 0; i<todolists.length; i++)
 		{
 			if(todolists[i].id === swapId)
@@ -206,6 +212,7 @@ const Homescreen = (props) => {
 	const handleSetActive = (id) => {
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
 		setActiveList(todo);
+		history.push("\_regions", todo);
 	};
 
 	
@@ -246,7 +253,7 @@ const Homescreen = (props) => {
 	const handleKeyPress = (event) => {
 		if(event.key === "Control")
 		{
-			console.log("changing ctrlPRess to 1!");
+			console.log("changing ctrlPress to 1!");
 			ctrlPress = 1;
 		}
 		else if(ctrlPress === 1 && event.key === "z")
@@ -259,7 +266,28 @@ const Homescreen = (props) => {
 		}
 		else {ctrlPress = 0;}
 	}
+	/*
+		<WLMain>
+				{
+					activeList ? 
+							<div className="container-secondary">
+								<MainContents
+									clearTransactions={clearTransactions}
+									addItem={addItem} deleteItem={deleteItem}
+									editItem={editItem} reorderItem={reorderItem}
+									setShowDelete={setShowDelete} sortList = {sortAllItems}
+									activeList={activeList} setActiveList={setActiveList}
+									undo={tpsUndo} redo={tpsRedo}
+									hasUndo={props.tps.hasTransactionToUndo()}
+									hasRedo={props.tps.hasTransactionToRedo()}
+								/>
+							</div>
+						:
+							<div className="container-secondary" />
+				}
 
+			</WLMain>
+	*/ 
 	return (
 		<WLayout wLayout="header-lside">
 			<WLHeader>
@@ -280,7 +308,6 @@ const Homescreen = (props) => {
 					</ul>
 				</WNavbar>
 			</WLHeader>
-
 			<WLSide side="left">
 				<WSidebar>
 					{
@@ -298,28 +325,11 @@ const Homescreen = (props) => {
 							<></>
 					}
 				</WSidebar>
-			</WLSide>
+			</WLSide>		
 			<WLMain>
-				{
-					activeList ? 
-							<div className="container-secondary">
-								<MainContents
-									clearTransactions={clearTransactions}
-									addItem={addItem} deleteItem={deleteItem}
-									editItem={editItem} reorderItem={reorderItem}
-									setShowDelete={setShowDelete} sortList = {sortAllItems}
-									activeList={activeList} setActiveList={setActiveList}
-									undo={tpsUndo} redo={tpsRedo}
-									hasUndo={props.tps.hasTransactionToUndo()}
-									hasRedo={props.tps.hasTransactionToRedo()}
-								/>
-							</div>
-						:
-							<div className="container-secondary" />
-				}
-
-			</WLMain>
-
+				<MapChart setTooltipContent={setContent} />
+				<ReactTooltip>{content}</ReactTooltip>
+			</WLMain>	
 			{
 				showDelete && (<Delete showDelete = {showDelete} deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
 			}

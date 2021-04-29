@@ -1,10 +1,15 @@
 import React, { useState } 	from 'react';
 import { UPDATE }			from '../../cache/mutations';
+import { WRow, WCol } from 'wt-frontend';
 import { useMutation }    	from '@apollo/client';
-
-import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput, WRow, WCol } from 'wt-frontend';
-
+import { useHistory, useLocation}		from "react-router-dom"
+import NavbarOptions 		from '../navbar/NavbarOptions';
+import Logo 				from '../navbar/Logo';
+import { WNavbar, WNavItem } 	from 'wt-frontend';
+import { WLayout, WLHeader} from 'wt-frontend';
+import { WModal, WMHeader, WButton, WInput } from 'wt-frontend';
 const Update = (props) => {
+    let history = useHistory();
 	const [input, setInput] = useState({email: props.user._id, newEmail: "", password: "", firstName: "", lastName: "" });
 	const [loading, toggleLoading] = useState(false);
 	const [Update] = useMutation(UPDATE);
@@ -20,13 +25,35 @@ const Update = (props) => {
 		const {loading, error, data} = await Update({variables: {...input} });
 		if (loading) { toggleLoading(true) };
 		if (error) { return `Error: ${error.message}` };
+        history.push("\maps");
 	};
 
+    const auth = false;
+    const setShowCreate = () => {}
+    const setShowLogin = () => {}
+    const setActiveList = () => {}
+    const refetch = () => {}
 	return (
         // Replace div with WModal
-
-		<WModal className="signup-modal" visible = {props.showUpdate}>
-			<WMHeader className="modal-header" onClose={() => props.setShowUpdate(false)}>
+        <WLayout wLayout="header-lside">
+        <WLHeader>
+            <WNavbar color="colored">
+                <ul>
+                    <WNavItem>
+                        <Logo className='logo' />
+                    </WNavItem>
+                </ul>
+                <ul>
+                    <NavbarOptions
+                        fetchUser={props.fetchUser} auth={auth} 
+                        setShowCreate={setShowCreate} setShowLogin={setShowLogin}
+                        refetchTodos={refetch} setActiveList={setActiveList}
+                    />
+                </ul>
+            </WNavbar>
+        </WLHeader>
+		<WModal className="signup-modal" visible = {true}>
+			<WMHeader className="modal-header" onClose={() => history.push("\maps")}>
 				Update Account
 			</WMHeader>
 			{
@@ -63,6 +90,7 @@ const Update = (props) => {
 				Update
 			</WButton>
 		</WModal>
+        </WLayout>
 	);
 }
 

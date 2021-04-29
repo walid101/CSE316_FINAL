@@ -1,6 +1,10 @@
 import React 			from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
 import Homepage			from './components/Pages/Homepage';
+import Login			from './components/Pages/LoginPage';
+import Signup			from './components/Pages/SignupPage';
+import Update 			from './components/Pages/UpdatePage';
+import Regions			from './components/Pages/RegionsPage';
 import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
@@ -33,6 +37,34 @@ const App = () => {
 					name="maps" 
 					render={() => 
 						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route 
+					path="/login" 
+					name="login" 
+					render={() => 
+						<Login fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route 
+					path="/signup" 
+					name="signup" 
+					render={() => 
+						<Signup fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route 
+					path="/changeInfo" 
+					name="changeInfo" 
+					render={() => 
+						<Update fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route 
+					path="/_regions" 
+					name="_regions" 
+					render={() => 
+						<Regions fetchUser={refetch} user={user} />
 					} 
 				/>
 				<Route/>

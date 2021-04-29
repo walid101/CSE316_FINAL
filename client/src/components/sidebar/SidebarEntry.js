@@ -1,6 +1,5 @@
 import React, { useState }  from 'react';
 import { WNavItem, WInput } from 'wt-frontend';
-
 const SidebarEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
     const [preEdit, setPreEdit] = useState(props.name);
@@ -23,19 +22,20 @@ const SidebarEntry = (props) => {
         props.handleSetActive(props.id) 
     }
     const entryStyle = props.id === props.activeid ? 'list-item list-item-active' : 'list-item ';
-    
     return (
-        <WNavItem 
-            className={entryStyle} onDoubleClick={handleEditing} 
-            onClick={swapTop} hoverAnimation="lighten"
-        >
-            {
-                editing ? <WInput className="list-item-edit" inputClass="list-item-edit-input" wType="lined" barAnimation="solid" name='name' onBlur={handleSubmit} autoFocus={true} defaultValue={props.name} />
-                    :   <div className='list-text'>
-                            {props.name}
-                        </div>
-            }
-        </WNavItem>
+        <>
+          <WNavItem 
+                className={entryStyle} onDoubleClick={handleEditing} 
+                onClick={swapTop} hoverAnimation="lighten"
+            >
+                {
+                    editing ? <WInput className="list-item-edit" inputClass="list-item-edit-input" wType="lined" barAnimation="solid" name='name' onBlur={handleSubmit} autoFocus={true} defaultValue={props.name} />
+                        :   <div className='list-text'>
+                                {props.name}
+                            </div>
+                }
+            </WNavItem>
+        </>
     );
 };
 

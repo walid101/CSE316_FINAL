@@ -1,4 +1,4 @@
-import React                                from 'react';
+import React , {useState, useEffect }   	from 'react';
 import { LOGOUT }                           from '../../cache/mutations';
 import { useMutation, useApolloClient }     from '@apollo/client';
 import { WButton, WNavItem }                from 'wt-frontend';
@@ -24,7 +24,7 @@ const LoggedIn = (props) => {
                 </WButton>
             </WNavItem >
             <WNavItem hoverAnimation="lighten">
-                <WButton className="navbar-update-options" onClick={props.setShowUpdate} wType="texted" hoverAnimation="text-primary">
+                <WButton className="navbar-update-options" onClick={() => {history.push("\changeInfo")}} wType="texted" hoverAnimation="text-primary">
                     Update
                 </WButton>
             </WNavItem>
@@ -33,15 +33,16 @@ const LoggedIn = (props) => {
 };
 
 const LoggedOut = (props) => {
+    let history = useHistory();
     return (
         <>
             <WNavItem hoverAnimation="lighten">
-                <WButton className="navbar-options" onClick={props.setShowLogin} wType="texted" hoverAnimation="text-primary">
+                <WButton className="navbar-options" onClick={() => {history.push("\login", {refetchTodos: props.refetchTodos})}} wType="texted" hoverAnimation="text-primary">
                     Login
                 </WButton>
             </WNavItem>
             <WNavItem hoverAnimation="lighten">
-                <WButton className="sign-up" onClick={props.setShowCreate} wType="texted" hoverAnimation="text-primary"> 
+                <WButton className="sign-up" onClick={() => {history.push("\signup")}} wType="texted" hoverAnimation="text-primary"> 
                     Sign Up 
                 </WButton>
             </WNavItem>

@@ -44,6 +44,7 @@
 	--darkblue-gray: #2b2e36;
     --warm-black: #322d2d;
     --coral-blue: #4760E9;
+    --vibr-blue: rgb(77, 184, 255);
 }
 
 html, body {
@@ -96,7 +97,7 @@ html, body {
     font-size: 1.375rem;
     font-weight: bold;
     padding: 0;
-    color: $text-color;
+    color: var(--vibr-blue);
 }
 
 .table-entries {
@@ -222,4 +223,7 @@ html, body {
 .title-card {
     color: $primary-color;
     font-family: 'Courier New', Courier, monospace;
+}
+.map-title-name {
+    color: --vibr-blue;
 }

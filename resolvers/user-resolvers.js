@@ -86,7 +86,7 @@ module.exports = {
 
 		update: async (_, args, { res }) => {
 			const {email, newEmail, newPassword, newFirstName, newLastName } = args;
-			const user = await User.findOne({email: email});
+			const user = await User.findOne({_id: email});
 			if(!user) return({});
 			if(newEmail !== "")
 			{
