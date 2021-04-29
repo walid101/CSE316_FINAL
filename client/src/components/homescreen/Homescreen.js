@@ -1,7 +1,7 @@
 import React, {useState, useEffect } 	from 'react';
 import Logo 							from '../navbar/Logo';
 import NavbarOptions 					from '../navbar/NavbarOptions';
-import MainContents 					from '../main/MainContents';
+//import MainContents 					from '../main/MainContents';
 import SidebarContents 					from '../sidebar/SidebarContents';
 import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
@@ -20,10 +20,11 @@ import { UpdateListField_Transaction,
 	ReorderItems_Transaction, 
 	EditItem_Transaction,
 	SortItems_Transaction} 				from '../../utils/jsTPS';
-import WInput from 'wt-frontend/build/components/winput/WInput';
+//import WInput from 'wt-frontend/build/components/winput/WInput';
 
 const Homescreen = (props) => {
 	let history = useHistory();
+	let location = useLocation();
 	let todolists 							= [];
 	let ctrlPress							= 0;
 	const [content, setContent] 			= useState("");
@@ -34,6 +35,7 @@ const Homescreen = (props) => {
 	const [runId, toggleRunId] 				= useState(0);	
 	const [runListId, toggleRunListId]		= useState(0);
 	const [showUpdate, toggleShowUpdate]	= useState(false);
+	const [refetchCount, toggleRefresh] 	= useState(0);
 	const [, updateState] = React.useState();
 	const forceUpdate = React.useCallback(() => updateState({}), []);
 	/*
@@ -49,7 +51,7 @@ const Homescreen = (props) => {
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
 	const [SortItems] 				= useMutation(mutations.SORT_ITEMS);
-	const [SwapTopList]				= useMutation(mutations.SWAP_TOP);
+	//const [SwapTopList]				= useMutation(mutations.SWAP_TOP);
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
 	if(loading) { console.log(loading, 'loading'); }
@@ -69,6 +71,14 @@ const Homescreen = (props) => {
 			}
 		}
 	}
+	if(location.state.refetchNumber % 2 == 1 && refetchCount % 2 == 0)
+	{
+		//location.state.refetchNumber+=1;
+		//console.log("location refetch number is now: ", location.state.refetchNumber);
+		//console.log("refreshing todos!");
+		toggleRefresh(refetchCount + 1);
+		refetchTodos(refetch);
+	}
 	const tpsUndo = async () => {
 		const retVal = await props.tps.undoTransaction();
 		refetchTodos(refetch);
@@ -85,6 +95,7 @@ const Homescreen = (props) => {
 	// Creates a default item and passes it to the backend resolver.
 	// The return id is assigned to the item, and the item is appended
 	// to the local cache copy of the active todolist. 
+	/*
 	const addItem = async () => {
 		let list = activeList;
 		const items = list.items;
@@ -137,7 +148,7 @@ const Homescreen = (props) => {
 	};
 
 	const reorderItem = async (itemID, dir) => {
-		console.log(activeList.items);
+		//console.log(activeList.items);
 		let listID = activeList._id;
 		let transaction = new ReorderItems_Transaction(listID, itemID, dir, ReorderTodoItems);
 		props.tps.addTransaction(transaction);
@@ -160,6 +171,7 @@ const Homescreen = (props) => {
 			tpsRedo();//do transaction
 		}	
 	}
+	*/
 	const clearTransactions = async () => {
 		props.tps.clearAllTransactions();
 	}
@@ -196,7 +208,7 @@ const Homescreen = (props) => {
 	const swapToTop = async (swapId) =>
 	{
 		let index = -1;
-		console.log("todolistlength: ", todolists.length);
+		//console.log("todolistlength: ", todolists.length);
 		for(let i = 0; i<todolists.length; i++)
 		{
 			if(todolists[i].id === swapId)
@@ -236,7 +248,7 @@ const Homescreen = (props) => {
 	};
 
 	const setShowUpdate = () => {
-		console.log("updating....");
+		//console.log("updating....");
 		toggleShowDelete(false);
 		toggleShowLogin(false);
 		toggleShowCreate(false);
@@ -253,7 +265,7 @@ const Homescreen = (props) => {
 	const handleKeyPress = (event) => {
 		if(event.key === "Control")
 		{
-			console.log("changing ctrlPress to 1!");
+			//console.log("changing ctrlPress to 1!");
 			ctrlPress = 1;
 		}
 		else if(ctrlPress === 1 && event.key === "z")
@@ -304,6 +316,7 @@ const Homescreen = (props) => {
 							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
 							refetchTodos={refetch} setActiveList={setActiveList}
 							user={props.user}
+							refetchNum = {refetchCount}
 						/>
 					</ul>
 				</WNavbar>

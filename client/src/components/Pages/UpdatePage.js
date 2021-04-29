@@ -25,7 +25,7 @@ const Update = (props) => {
 		const {loading, error, data} = await Update({variables: {...input} });
 		if (loading) { toggleLoading(true) };
 		if (error) { return `Error: ${error.message}` };
-        history.push("\maps");
+        history.push("\maps", {refetchNumber: 0});
 	};
 
     const auth = false;
@@ -53,7 +53,7 @@ const Update = (props) => {
             </WNavbar>
         </WLHeader>
 		<WModal className="signup-modal" visible = {true}>
-			<WMHeader className="modal-header" onClose={() => history.push("\maps")}>
+			<WMHeader className="modal-header" onClose={() => history.push("\maps", {refetchNumber: 0})}>
 				Update Account
 			</WMHeader>
 			{

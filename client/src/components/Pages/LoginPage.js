@@ -1,16 +1,16 @@
 import React, { useState } 	from 'react';
 import { LOGIN } 			from '../../cache/mutations';
-import { useMutation }    	from '@apollo/client';
+import { useMutation}    	from '@apollo/client';
 import { useHistory, useLocation}		from "react-router-dom"
 import NavbarOptions 		from '../navbar/NavbarOptions';
 import Logo 				from '../navbar/Logo';
-import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
-import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
-import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput } from 'wt-frontend';
+import { WNavbar, WNavItem } 	from 'wt-frontend';
+import { WLayout, WLHeader } from 'wt-frontend';
+import { WModal, WMHeader, WMFooter, WButton, WInput } from 'wt-frontend';
 const Login = (props) => {
     let location = useLocation();
 	const [, updateState] = React.useState();
-    const forceUpdate = React.useCallback(() => updateState({}), []);
+    //const forceUpdate = React.useCallback(() => updateState({}), []);
 	const [input, setInput] = useState({ email: '', password: '' });
 	const [loading, toggleLoading] = useState(false);
 	const [showErr, displayErrorMsg] = useState(false);
@@ -25,7 +25,7 @@ const Login = (props) => {
 
 	const handleLogin = async (e) => {
 
-		const { loading, error, data } = await Login({ variables: { ...input } });
+		const { loading, data } = await Login({ variables: { ...input } });
 		if (loading) { toggleLoading(true) };
 		if (data.login._id === null) {
 			displayErrorMsg(true);
@@ -34,8 +34,9 @@ const Login = (props) => {
 		if (data) {
 			props.fetchUser();
 			//props.refetchTodos();
+			//console.log("refetch number is: ", location.state.refetchNumber);
 			toggleLoading(false);
-			history.push("/maps");
+			history.push("/maps", {refetchNumber: location.state.refetchNumber+1});
 			//forceUpdate();
 		};
 	};

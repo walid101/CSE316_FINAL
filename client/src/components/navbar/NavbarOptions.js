@@ -34,10 +34,11 @@ const LoggedIn = (props) => {
 
 const LoggedOut = (props) => {
     let history = useHistory();
+    
     return (
         <>
             <WNavItem hoverAnimation="lighten">
-                <WButton className="navbar-options" onClick={() => {history.push("\login", {refetchTodos: props.refetchTodos})}} wType="texted" hoverAnimation="text-primary">
+                <WButton className="navbar-options" onClick={() => {history.push("\login", {refetchNumber: props.refetchNum})}} wType="texted" hoverAnimation="text-primary">
                     Login
                 </WButton>
             </WNavItem>
@@ -52,11 +53,12 @@ const LoggedOut = (props) => {
 
 
 const NavbarOptions = (props) => {
+    //console.log("in navbarOptions: refetchNum is: ", props.refetchNum);
     return (
         <>
             {
-                props.auth === false ? <LoggedOut setShowLogin={props.setShowLogin} setShowCreate={props.setShowCreate} />
-                : <LoggedIn  setShowUpdate = {props.setShowUpdate} fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} />
+                props.auth === false ? <LoggedOut refetchNum = {props.refetchNum} setShowLogin={props.setShowLogin} setShowCreate={props.setShowCreate} />
+                : <LoggedIn setShowUpdate = {props.setShowUpdate} fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} />
             }
         </>
 
