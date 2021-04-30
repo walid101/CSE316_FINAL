@@ -12,7 +12,7 @@ const SidebarEntry = (props) => {
         toggleEditing(!editing);
         props.handleSetActive(props.id) 
     };
-
+    const setActive = (e) => { props.handleSetActive(props.id) };
     const handleSubmit = (e) => {
         handleEditing(e);
         const { name, value } = e.target;
@@ -21,12 +21,13 @@ const SidebarEntry = (props) => {
 
     const switchScreens = (e) => {
         history.push("/_regions", {id: props.id, regionCounter: 0, user: props.user})
-    }
+    };
     const entryStyle = props.id === props.activeid ? 'list-item list-item-active' : 'list-item ';
     return (
         <>
           <WNavItem 
                 className={entryStyle} onContextMenu = {switchScreens}
+                onClick={setActive}
                 onDoubleClick={handleEditing} hoverAnimation="lighten"
                 
             >
