@@ -216,9 +216,11 @@ html, body {
 }
 .topArrow-white {
     color: white;
+    text-align: left;
 }
 .topArrow-black {
-    color: black
+    color: black;
+    text-align: left;
 }
 .title-card {
     color: $primary-color;
@@ -226,4 +228,18 @@ html, body {
 }
 .map-title-name {
     color: --vibr-blue;
+}
+.undo-styled {
+    transform: rotate(-180deg);
+}
+.redo-styled {
+    //transform: rotate(20deg);
+    transform: rotate(-180deg);
+}
+.close-btn {
+    color: crimson;
+}
+.add-btn {
+    color:rgb(73, 212, 115);
+    size: 200px;
 }

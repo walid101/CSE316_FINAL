@@ -97,6 +97,8 @@ html {
     height: 100%;
     display: flex;
     align-items: center;
+    align-items: right;
+    text-align: right;
 }
 
 .sidebar-header {
@@ -208,4 +210,7 @@ html {
 svg {
     display: inline-block;
     vertical-align: middle;
+}
+.main-sidebar {
+    height: 1500px;
 }

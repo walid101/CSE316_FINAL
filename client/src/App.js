@@ -64,7 +64,7 @@ const App = () => {
 					path="/_regions" 
 					name="_regions" 
 					render={() => 
-						<Regions fetchUser={refetch} user={user} />
+						<Regions tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
 				<Route/>

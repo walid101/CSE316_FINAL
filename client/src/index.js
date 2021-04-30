@@ -42,6 +42,7 @@ const client = new ApolloClient({
 ReactDOM.render(
 	<React.StrictMode>
 		<ApolloProvider client={client}>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
 	    	<App />
 		</ApolloProvider>
   	</React.StrictMode>,

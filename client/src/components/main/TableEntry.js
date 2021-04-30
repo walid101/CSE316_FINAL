@@ -87,9 +87,17 @@ const TableEntry = (props) => {
             props.reorderItem(data._id, 1);
         }
     }
+    /**
+     *  <WButton className = {`table-entry-buttons ${moveUpColor}`} onClick={handleMoveUp} wType="texted">
+                        <i className="material-icons">expand_less</i>
+                    </WButton>
+                    <WButton className = {`table-entry-buttons ${moveDownColor}`} onClick={handleMoveDown} wType="texted">
+                        <i className="material-icons">expand_more</i>
+                    </WButton>
+     */
     return (
         <WRow className='table-entry'>
-            <WCol size="5">
+            <WCol size="2">
             {
                 editingDescr || description === ''
                     ? <WInput
@@ -108,10 +116,10 @@ const TableEntry = (props) => {
 
             <WCol size="2">
                 {
-                    editingDate ? <input
+                    editingDate ? <WInput
                         className='table-input' onBlur={handleDateEdit}
                         onKeyPress={checkEnterDate}
-                        autoFocus={true} defaultValue={due_date} type='date'
+                        autoFocus={true} defaultValue={due_date} type='text'
                         wType="outlined" barAnimation="solid" inputClass="table-input-class"
                     />
                         : <div className="table-text"
@@ -152,18 +160,15 @@ const TableEntry = (props) => {
                     </div>
             }
             </WCol>
+            <WCol size="3">
+            {
+                
+            }
+            </WCol>
             <WCol size="1">
-                <div className='button-group'>
-                    <WButton className = {`table-entry-buttons ${moveUpColor}`} onClick={handleMoveUp} wType="texted">
-                        <i className="material-icons">expand_less</i>
-                    </WButton>
-                    <WButton className = {`table-entry-buttons ${moveDownColor}`} onClick={handleMoveDown} wType="texted">
-                        <i className="material-icons">expand_more</i>
-                    </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => props.deleteItem(data, props.index)} wType="texted">
+                    <WButton className="table-entry-buttons button-group" onClick={() => props.deleteItem(data, props.index)} wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
-                </div>
             </WCol>
         </WRow>
     );

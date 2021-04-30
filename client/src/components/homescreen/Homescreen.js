@@ -203,7 +203,7 @@ const Homescreen = (props) => {
 		let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateTodolistField);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
-
+		//UpdateTodolistField({ variables: { _id: _id, field: field, value: value }});
 	};
 	const swapToTop = async (swapId) =>
 	{
@@ -220,19 +220,13 @@ const Homescreen = (props) => {
 		toggleTopIndex(index);
 		//console.log("swapTopIndex: ", swapTopIndex);
 		forceUpdate();
+		//switch screens history.push("\_regions", todo);
 	};
 	const handleSetActive = (id) => {
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
 		setActiveList(todo);
-		history.push("\_regions", todo);
 	};
 
-	
-	/*
-		Since we only have 3 modals, this sort of hardcoding isnt an issue, if there
-		were more it would probably make sense to make a general modal component, and
-		a modal manager that handles which to show.
-	*/
 	const setShowLogin = () => {
 		toggleShowDelete(false);
 		toggleShowCreate(false);
@@ -256,6 +250,7 @@ const Homescreen = (props) => {
 	};
 
 	const setShowDelete = () => {
+		console.log("Deleting...");
 		toggleShowCreate(false);
 		toggleShowLogin(false);
 		toggleShowUpdate(false);
@@ -312,7 +307,7 @@ const Homescreen = (props) => {
 					<ul>
 						<NavbarOptions
 							fetchUser={props.fetchUser} auth={auth} 
-							setShowUpdate={setShowUpdate}
+							setShowUpdate={setShowUpdate} setShowDelete={setShowDelete}
 							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
 							refetchTodos={refetch} setActiveList={setActiveList}
 							user={props.user}
@@ -322,7 +317,7 @@ const Homescreen = (props) => {
 				</WNavbar>
 			</WLHeader>
 			<WLSide side="left">
-				<WSidebar>
+				<WSidebar className = "main-sidebar">
 					{
 						activeList ?
 							<SidebarContents
@@ -331,8 +326,9 @@ const Homescreen = (props) => {
 								undo={tpsUndo} redo={tpsRedo}
 								updateListField={updateListField}
 								swapToTop = {swapToTop}
-								topIndex = {swapTopIndex}
 								handleKeyPress = {handleKeyPress}
+								setShowDelete = {setShowDelete}
+								user={props.user}
 							/>
 							:
 							<></>
