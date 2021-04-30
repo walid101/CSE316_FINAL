@@ -103,10 +103,11 @@ const Regions = (props) => {
 		const newItem = {
 			_id: '',
 			id: lastID,
-			description: 'No Description',
-			due_date: 'No Date',
-			assigned_to: "Not Assigned",
-			completed: false
+			description: 'Input Name',
+			due_date: 'Input Capital',
+			assigned_to: "Input Flag",
+			completed: "Input Leader",
+            landmark: "Input Landmark"
 		};
 		let opcode = 1;
 		let itemID = newItem._id;
@@ -136,7 +137,8 @@ const Regions = (props) => {
 
 	const editItem = async (itemID, field, value, prev) => {
 		let flag = 0;
-		if (field === 'completed') flag = 1;
+		//if (field === 'completed') flag = 1;
+        console.log("in EditItem!");
 		let listID = activeList._id;
 		let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
 		props.tps.addTransaction(transaction);

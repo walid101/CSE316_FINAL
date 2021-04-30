@@ -18,11 +18,13 @@ const TableEntry = (props) => {
     const assigned_to = data.assigned_to;
     const description = data.description;
     const due_date = data.due_date;
-    const status = data.completed ? 'complete' : 'incomplete';
+    const status = data.completed;
+    const landmark = data.landmark;
     const [editingDate, toggleDateEdit] = useState(false);
     const [editingDescr, toggleDescrEdit] = useState(false);//hook
     const [editingStatus, toggleStatusEdit] = useState(false);
     const [editingAssign, toggleAssignEdit] = useState(false);
+    const [editingLandmark, toggleLandEdit] = useState(false);
 
     const handleAssignEdit = (e) => {
         toggleAssignEdit(false);
@@ -46,10 +48,18 @@ const TableEntry = (props) => {
 
     const handleStatusEdit = (e) => {
         toggleStatusEdit(false);
-        const newStatus = e.target.value ? e.target.value : false;
+        const newStatus = e.target.value ? e.target.value : 'Input Leader';
         const prevStatus = status;
         props.editItem(data._id, 'completed', newStatus, prevStatus);
     };
+
+    const handleLandEdit = (e) => {
+        toggleLandEdit(false);
+        const newLand = e.target.value ? e.target.value : 'No Landmark';
+        const prevLand = description;
+        props.editItem(data._id, 'landmark', newLand, prevLand);
+    };
+
     const checkEnterDesc = (e) => {
         if(e.key === "Enter")
         {
@@ -74,6 +84,13 @@ const TableEntry = (props) => {
             handleAssignEdit(e);
         }
     }
+    const checkEnterLand = (e) => {
+        if(e.key === "Enter")
+        {
+            handleLandEdit(e);
+        }
+    }
+
     const handleMoveUp = () => {
         if(props.index !== 0)
         {
@@ -131,15 +148,14 @@ const TableEntry = (props) => {
 
             <WCol size="2">
                 {
-                    editingStatus ? <select
-                        className='table-select' onBlur={handleStatusEdit}
-                        onKeyPress={checkEnterStat}
+                    editingStatus ? <WInput
+                        className='table-input' onBlur={handleStatusEdit}
+                        onKeyPress={checkEnterStat} type='text'
                         autoFocus={true} defaultValue={status}
                     >
-                        <option value="complete">complete</option>
-                        <option value="incomplete">incomplete</option>
-                    </select>
-                        : <div onClick={() => toggleStatusEdit(!editingStatus)} className={`${completeStyle} table-text`}>
+                    </WInput>
+                        : <div className="table-text"
+                            onClick={() => toggleStatusEdit(!editingStatus)}>
                             {status}
                         </div>
                 }
@@ -151,18 +167,30 @@ const TableEntry = (props) => {
                         className= "table-input" onBlur={handleAssignEdit}
                         onKeyPress={checkEnterAssign}
                         autoFocus={true} defaultValue={assigned_to} type='text'
-                        wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        wType="outlined" barAnimation="solid" 
                         color = "blue"
                     />
-                    : <div className={`${assignedStyle} table-text`}
-                        onClick={() => toggleAssignEdit(!editingAssign)}
-                    >{assigned_to}
-                    </div>
+                    :   <div className="table-text"
+                            onClick={() => toggleAssignEdit(!editingAssign)}
+                        >{assigned_to}
+                        </div>
             }
             </WCol>
             <WCol size="3">
             {
-                
+                   editingLandmark || landmark === ''
+                   ? <WInput
+                       className='table-input' onBlur={handleLandEdit}
+                        //{this.addEventListener()}
+                        onKeyPress={checkEnterLand}
+                        autoFocus={true} defaultValue={landmark} type='text'
+                        wType="outlined" barAnimation="solid" inputClass="table-input-class" 
+                    />
+                   :
+                   <div className="table-text"
+                        onClick={() => toggleLandEdit(!editingLandmark)}
+                   >{landmark}
+                   </div>
             }
             </WCol>
             <WCol size="1">

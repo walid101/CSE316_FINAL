@@ -103,9 +103,14 @@ const CreateAccount = (props) => {
 						/>
 					</div>
 			}
+			<WMFooter>
 			<WButton className="modal-button" onClick={handleCreateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
 				Submit
 			</WButton>
+			<WButton className="modal-button cancel-btn" onClick={() => history.push("/home")} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+				Cancel
+			</WButton>
+			</WMFooter>
 		</WModal>
         </WLayout>
 	);

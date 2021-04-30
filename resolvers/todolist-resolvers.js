@@ -138,13 +138,16 @@ module.exports = {
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
 			let listItems = found.items;
+			/*
 			if(flag === 1) {
 				if(value === 'complete') { value = true; }
 				if(value === 'incomplete') { value = false; }
 			}
+			*/
 			listItems.map(item => {
 				if(item._id.toString() === itemId) {	
-					
+					//console.log("item field", field);
+					//console.log("new value: ", value);
 					item[field] = value;
 				}
 			});

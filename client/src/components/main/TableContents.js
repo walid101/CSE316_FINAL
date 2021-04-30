@@ -2,7 +2,7 @@ import React        from 'react';
 import TableEntry   from './TableEntry';
 
 const TableContents = (props) => {
-    console.log("activelist in tableContents: ", props.activeList);
+    //console.log("activelist in tableContents: ", props.activeList);
     const entries = props.activeList ? props.activeList.items : null;
     return (
         entries ? <div className=' table-entries container-primary'>

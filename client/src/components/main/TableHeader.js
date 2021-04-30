@@ -1,9 +1,11 @@
+import { hashSync } from 'bcryptjs';
 import React from 'react';
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import { WButton, WRow, WCol } from 'wt-frontend';
 
 const TableHeader = (props) => {
-
+    let history = useHistory();
     const buttonStyle = props.disabled ? ' table-header-button-disabled ' : 'table-header-button ';
     const redoStyle = props.hasRedo ? ' topArrow-white' : ' topArrow-black';
     let undoStyle = ' topArrow-white';
@@ -28,6 +30,9 @@ const TableHeader = (props) => {
         updateStatClick(statClick + 1);
         props.sortList(3, statClick);
     }
+    const handleClose = (e) => {
+        history.goBack();
+    }
     return (
         <WRow className="table-header">  
             <WCol size = "2">
@@ -38,41 +43,40 @@ const TableHeader = (props) => {
                     <i className="material-icons redo-styled">subdirectory_arrow_left</i>
                 </WButton>
                 <WButton className={`sidebar-buttons`} onClick={props.addItem} wType="texted" className={`${buttonStyle}`}>
-                        <i className="material-icons add-btn">add</i>
+                        <i className="material-icons add-btn">add_box</i>
                 </WButton>
             </WCol>
             <WCol size = "9"></WCol>
             <WCol size="1">
                 <div className="table-header-buttons">
-                    <WButton onClick={props.disabled ? clickDisabled : () => {props.clearTransactions(); props.setActiveList({})}} wType="texted" className={`${buttonStyle}`}>
+                    <WButton onClick={handleClose} wType="texted" className={`${buttonStyle}`}>
                         <i className="material-icons close-btn">close</i>
                     </WButton>
                 </div>
             </WCol>
-
-            <WCol size="2">
+            <WCol size="2" className = "title-header">
                 <WButton className='table-header-section' wType="texted" onClick = {
                     handleTaskClick
                 }>Name</WButton>
             </WCol>
 
-            <WCol size="2">
+            <WCol size="2" className = "title-header">
                 <WButton className='table-header-section' wType="texted" onClick = {
                     handleDateClick
                 }>Capital</WButton>
             </WCol>
 
-            <WCol size="2">
+            <WCol size="2" className = "title-header">
                 <WButton className='table-header-section' wType="texted" onClick = {
                     handleStatClick
                 }>Leader</WButton>
             </WCol>
-            <WCol size = "2">
+            <WCol size = "2" className = "title-header">
                 <WButton className='table-header-section' wType="texted" onClick = {
                     handleStatClick
                 }>Flag</WButton>
             </WCol>
-            <WCol size = "4">
+            <WCol size = "4" className = "title-header">
                 <WButton className='table-header-section' wType="texted" onClick = {
                     handleStatClick
                 }>Landmarks</WButton>

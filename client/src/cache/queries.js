@@ -25,6 +25,7 @@ export const GET_DB_TODOS = gql`
 				due_date
 				assigned_to
 				completed
+				landmark
 			}
 		}
 	}

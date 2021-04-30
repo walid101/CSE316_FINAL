@@ -23,7 +23,11 @@ const itemSchema = new Schema(
 			required: true
 		},
 		completed: {
-			type: Boolean,
+			type: String,
+			required: true
+		},
+		landmark: {
+			type: String,
 			required: true
 		}
 	}

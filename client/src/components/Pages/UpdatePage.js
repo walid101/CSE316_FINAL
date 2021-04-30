@@ -8,6 +8,7 @@ import Logo 				from '../navbar/Logo';
 import { WNavbar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader} from 'wt-frontend';
 import { WModal, WMHeader, WButton, WInput } from 'wt-frontend';
+import WMFooter from 'wt-frontend/build/components/wmodal/WMFooter';
 const Update = (props) => {
     let history = useHistory();
 	const [input, setInput] = useState({email: props.user._id, newEmail: "", password: "", firstName: "", lastName: "" });
@@ -86,9 +87,14 @@ const Update = (props) => {
 						/>
 					</div>
 			}
-			<WButton className="modal-button" onClick={handleUpdateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
-				Update
-			</WButton>
+			<WMFooter>
+				<WButton className="modal-button" onClick={handleUpdateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+					Update
+				</WButton>
+				<WButton className="modal-button cancel-btn" onClick={() => history.push("\maps", {refetchNumber: 0})} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+					Cancel
+				</WButton>
+			</WMFooter>
 		</WModal>
         </WLayout>
 	);

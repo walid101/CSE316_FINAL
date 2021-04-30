@@ -7,13 +7,10 @@ const SidebarEntry = (props) => {
     const [preEdit, setPreEdit] = useState(props.name);
     const list_text = props.activeid == props.id ? "list_yellow" : "list_black";
     const handleEditing = (e) => {
-        if(e.type === 'click')
-        {
-            e.stopPropagation();
-            setPreEdit(props.name);
-            toggleEditing(!editing);
-            props.handleSetActive(props.id) 
-        }
+        e.stopPropagation();
+        setPreEdit(props.name);
+        toggleEditing(!editing);
+        props.handleSetActive(props.id) 
     };
 
     const handleSubmit = (e) => {
@@ -23,18 +20,14 @@ const SidebarEntry = (props) => {
     };
 
     const switchScreens = (e) => {
-        //console.log(props.id);
-        //console.log("Change to Regions Screen!");
-        //props.handleSetActive(props.id) 
-        //console.log("switching screens!");
         history.push("/_regions", {id: props.id, regionCounter: 0, user: props.user})
     }
     const entryStyle = props.id === props.activeid ? 'list-item list-item-active' : 'list-item ';
     return (
         <>
           <WNavItem 
-                className={entryStyle} onDoubleClick={switchScreens} onContextMenu = {switchScreens}
-                onClick={handleEditing} hoverAnimation="lighten"
+                className={entryStyle} onContextMenu = {switchScreens}
+                onDoubleClick={handleEditing} hoverAnimation="lighten"
                 
             >
                 {
