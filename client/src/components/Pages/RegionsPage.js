@@ -230,7 +230,7 @@ const Regions = (props) => {
                     <WNavbar color="colored">
                         <ul>
                             <WNavItem>
-                                <Logo className='logo' />
+                                <Logo className='logo' displayWorld={1} activeList={activeList}/>
                             </WNavItem>
                         </ul>
                         <ul>
