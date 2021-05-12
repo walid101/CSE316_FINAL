@@ -27,8 +27,11 @@ module.exports = {
 
 			const user = await User.findOne({email: email});
 			if(!user) return({});
-
-			const valid = await bcrypt.compare(password, user.password);
+			//console.log("user password is: ", user.password);
+			//console.log("password is: ", password);
+			//const valid = await bcrypt.compare(password, user.password);
+			const valid = (password === user.password);
+			//console.log("Valid is: ", valid);
 			if(!valid) return({});
 			// Set tokens if login info was valid
 			const accessToken = tokens.generateAccessToken(user);

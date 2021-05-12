@@ -24,7 +24,6 @@ const Login = (props) => {
 	}
 
 	const handleLogin = async (e) => {
-
 		const { loading, data } = await Login({ variables: { ...input } });
 		if (loading) { toggleLoading(true) };
 		if (data.login._id === null) {

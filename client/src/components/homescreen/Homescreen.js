@@ -33,6 +33,7 @@ const Homescreen = (props) => {
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [swapTopIndex, toggleTopIndex] 	= useState(-1);
 	const [runId, toggleRunId] 				= useState(0);	
+	const [newListMade, toggleNewList]		= useState(false);
 	const [runListId, toggleRunListId]		= useState(0);
 	const [showUpdate, toggleShowUpdate]	= useState(false);
 	const [refetchCount, toggleRefresh] 	= useState(0);
@@ -187,7 +188,8 @@ const Homescreen = (props) => {
 			items: [],
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
-		setActiveList(list)
+		setActiveList(list);
+		toggleNewList(true);
 		props.tps.clearAllTransactions();
 	};
 
@@ -249,12 +251,11 @@ const Homescreen = (props) => {
 		toggleShowUpdate(!showUpdate);
 	};
 
-	const setShowDelete = () => {
-		console.log("Deleting...");
+	const setShowDelete = (listId) => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
 		toggleShowUpdate(false);
-		toggleShowDelete(!showDelete)
+		toggleShowDelete(!showDelete);
 	};
 
 	const handleKeyPress = (event) => {

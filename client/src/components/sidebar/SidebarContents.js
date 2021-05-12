@@ -10,8 +10,9 @@ const SidebarContents = (props) => {
             />
             <SidebarList
                 activeid={props.activeid} handleSetActive={props.handleSetActive}
+                newListMade = {props.newListMade} toggleNewList = {props.toggleNewList}
                 todolists={props.todolists} createNewList={props.createNewList}
-                updateListField={props.updateListField}
+                updateListField={props.updateListField} setShowDelete = {props.setShowDelete}
                 swapToTop = {props.swapToTop}
                 topIndex = {props.topIndex}
                 handleKeyPress = {props.handleKeyPress}

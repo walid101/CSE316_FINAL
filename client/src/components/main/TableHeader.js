@@ -31,6 +31,7 @@ const TableHeader = (props) => {
         props.sortList(3, statClick);
     }
     const handleClose = (e) => {
+        props.clearTransactions();
         history.goBack();
     }
     return (

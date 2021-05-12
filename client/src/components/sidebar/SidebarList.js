@@ -22,8 +22,8 @@ const SidebarList = (props) => {
             <SidebarEntry
                 handleSetActive={props.handleSetActive} activeid={props.activeid}
                 id={todoLists[index].id} key={todoLists[index].id} name={todoLists[index].name} _id={todoLists[index]._id}
-                updateListField={props.updateListField}
-                swapToTop = {props.swapToTop}
+                updateListField={props.updateListField}  newListMade = {props.newListMade} toggleNewList = {props.toggleNewList}
+                swapToTop = {props.swapToTop} setShowDelete = {props.setShowDelete}
             />);
             for(let i = 0; i<todoLists.length; i++)
             {
@@ -33,8 +33,8 @@ const SidebarList = (props) => {
                     <SidebarEntry
                         handleSetActive={props.handleSetActive} activeid={props.activeid}
                         id={todoLists[i].id} key={todoLists[i].id} name={todoLists[i].name} _id={todoLists[i]._id}
-                        updateListField={props.updateListField}
-                        swapToTop = {props.swapToTop}
+                        updateListField={props.updateListField}  newListMade = {props.newListMade} toggleNewList = {props.toggleNewList}
+                        swapToTop = {props.swapToTop} setShowDelete = {props.setShowDelete}
                     />);
                 }
             }
@@ -45,8 +45,8 @@ const SidebarList = (props) => {
             <SidebarEntry
                 handleSetActive={props.handleSetActive} activeid={props.activeid}
                 id={todo.id} key={todo.id} name={todo.name} _id={todo._id}
-                updateListField={props.updateListField}
-                swapToTop = {props.swapToTop}
+                updateListField={props.updateListField}  newListMade = {props.newListMade} toggleNewList = {props.toggleNewList}
+                swapToTop = {props.swapToTop} setShowDelete = {props.setShowDelete}
             />
         ));}
         //console.log("top index IS -1!");
@@ -55,8 +55,8 @@ const SidebarList = (props) => {
                     handleSetActive={props.handleSetActive} activeid={props.activeid}
                     id={todo.id} key={todo.id} name={todo.name} _id={todo._id}
                     updateListField={props.updateListField}
-                    swapToTop = {props.swapToTop}
-                    user={props.user}
+                    swapToTop = {props.swapToTop}  newListMade = {props.newListMade} toggleNewList = {props.toggleNewList}
+                    user={props.user} setShowDelete = {props.setShowDelete}
                 />
             ));
     }
