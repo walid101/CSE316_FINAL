@@ -83,7 +83,7 @@ module.exports = {
 				id: id,
 				name: name,
 				owner: owner,
-				items: items
+				items: items,
 			});
 			const updated = newList.save();
 			if(updated) return objectId;

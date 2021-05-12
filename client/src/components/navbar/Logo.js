@@ -12,7 +12,7 @@ const Logo = (props) => {
     }
     const handleClick = (e) => {
         console.log("Logo was clicked!");
-        history.push("/home");
+        history.push("/maps");
     }
     const show = showWorld == 1? true : false;
     return (

@@ -2,6 +2,7 @@ const { model, Schema, ObjectId } = require('mongoose');
 
 const itemSchema = new Schema(
 	{
+		//regions arch
 		_id: {
 			type: ObjectId,
 			required: true
@@ -29,7 +30,7 @@ const itemSchema = new Schema(
 		landmark: {
 			type: String,
 			required: true
-		}
+		},
 	}
 );
 

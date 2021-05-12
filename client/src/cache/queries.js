@@ -27,6 +27,7 @@ export const GET_DB_TODOS = gql`
 				completed
 				landmark
 			}
+			level
 		}
 	}
 `;

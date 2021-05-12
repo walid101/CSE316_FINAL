@@ -53,6 +53,7 @@ export const DELETE_ITEM = gql`
 			due_date
 			assigned_to
 			completed
+			landmark
 		}
 	}
 `;
@@ -66,6 +67,7 @@ export const UPDATE_ITEM_FIELD = gql`
 			due_date
 			assigned_to
 			completed
+			landmark
 		}
 	}
 `;

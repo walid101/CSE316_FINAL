@@ -72,11 +72,8 @@ const Homescreen = (props) => {
 			}
 		}
 	}
-	if(location.state.refetchNumber % 2 == 1 && refetchCount % 2 == 0)
+	if(location.state != null && location.state.refetchNumber % 2 == 1 && refetchCount % 2 == 0)
 	{
-		//location.state.refetchNumber+=1;
-		//console.log("location refetch number is now: ", location.state.refetchNumber);
-		//console.log("refreshing todos!");
 		toggleRefresh(refetchCount + 1);
 		refetchTodos(refetch);
 	}

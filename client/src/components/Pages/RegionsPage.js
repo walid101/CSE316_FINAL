@@ -56,7 +56,7 @@ const Regions = (props) => {
 	const auth = location.state.user === null ? false : true;
     if(location.state.regionCounter % 2 == 0 && regionPageCount % 2 == 0)
     {
-        //console.log("getting state id from location!");
+        console.log("getting state id from location!");
         let list = todolists.find(list => list.id === location.state.id);
         setActiveList(list);
         toggleRegionPage(regionPageCount+1);
@@ -93,7 +93,7 @@ const Regions = (props) => {
 	// to the local cache copy of the active todolist. 
 	const addItem = async () => {
 		let list = activeList;
-        //console.log("activeList is: ", list);
+        console.log("activeList is: ", list);
 
 		const items = list.items;
 		//const lastID = items.length >= 1 ? items[items.length - 1].id + 1 : 0;
@@ -138,7 +138,7 @@ const Regions = (props) => {
 	const editItem = async (itemID, field, value, prev) => {
 		let flag = 0;
 		//if (field === 'completed') flag = 1;
-        //console.log("in EditItem!");
+        console.log("in EditItem!");
 		let listID = activeList._id;
 		let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
 		props.tps.addTransaction(transaction);
@@ -200,7 +200,7 @@ const Regions = (props) => {
 	};
 
 	const setShowDelete = () => {
-		//console.log("Deleting...");
+		console.log("Deleting...");
 		toggleShowCreate(false);
 		toggleShowLogin(false);
 		toggleShowUpdate(false);

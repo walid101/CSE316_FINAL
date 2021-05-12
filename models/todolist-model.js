@@ -19,6 +19,9 @@ const todolistSchema = new Schema(
 			type: String,
 			required: true
 		},
+		level : {
+			type: Number
+		},
 		items: [Item],
 	},
 	{ timestamps: true }
