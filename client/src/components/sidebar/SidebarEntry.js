@@ -10,11 +10,11 @@ const SidebarEntry = (props) => {
         e.stopPropagation();
         setPreEdit(props.name);
         toggleEditing(!editing);
-        props.handleSetActive(props.id) 
+        props.handleSetActive(props._id) 
     };
     //const setActive = (e) => { props.handleSetActive(props.id);};
     const deleteListCurr = (e) => {
-        props.handleSetActive(props.id);
+        props.handleSetActive(props._id);
         props.setShowDelete(1);
     }
     const handleSubmit = (e) => {
@@ -23,10 +23,17 @@ const SidebarEntry = (props) => {
         props.updateListField(props._id, name, value, preEdit);
     };
     const switchScreens = (e) => {
-        history.push("/_regions", {id: props.id, regionCounter: 0, user: props.user})
+        history.push("/_regions", {_id: props._id, regionCounter: 0, user: props.user})
         console.log("Set Show Delete: ", props.setShowDelete);
     };
-    const entryStyle = props.id === props.activeid ? 'list-item list-item-active' : 'list-item ';
+
+    const handleActive = (e) => {
+        console.log("Clicked!");
+        props.handleSetActive(props._id);
+    }
+    //console.log("props._id: ", props._id);
+    //console.log("props._activeid")
+    const entryStyle = props._id === props._activeid ? 'list-item list-item-active' : 'list-item ';
     //<i class="material-icons list-trash">delete_outline</i>
     return (
         <>
@@ -39,7 +46,7 @@ const SidebarEntry = (props) => {
                     
                     editing ? <WInput className="list-item-edit" inputClass="list-item-edit-input" wType="lined" barAnimation="solid" name='name' onBlur={handleSubmit} autoFocus={true} defaultValue={props.name} />
                         :  
-                            <div className='list-text'>
+                            <div className='list-text' onClick = {handleActive}>
                                 {props.name}
                                 <WButton onClick={handleEditing} wType="texted" className="table-header-button">
                                 <i className='fas list-pencil'>&#xf304;</i>

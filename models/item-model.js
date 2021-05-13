@@ -31,6 +31,12 @@ const itemSchema = new Schema(
 			type: String,
 			required: true
 		},
+		parRegId: {
+			type: String
+		},
+		subRegId: {
+			type: String
+		}
 	}
 );
 

@@ -24,17 +24,6 @@ const Homepage = (props) => {
 	const [nameOfNewStateVar , nameOfFunctionThatChangesValsOfNewStateVar] = useState(initialVal);
 	*/
 	const [showCreate, toggleShowCreate] 	= useState(false);
-	/*
-	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
-	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
-	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD);
-	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
-	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
-	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
-	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
-	const [SortItems] 				= useMutation(mutations.SORT_ITEMS);
-	const [SwapTopList]				= useMutation(mutations.SWAP_TOP);
-	*/
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }

@@ -77,13 +77,14 @@ module.exports = {
 		addTodolist: async (_, args) => {
 			const { todolist } = args;
 			const objectId = new ObjectId();
-			const { id, name, owner, items } = todolist;
+			const { id, name, owner, items, level } = todolist;
 			const newList = new Todolist({
 				_id: objectId,
 				id: id,
 				name: name,
 				owner: owner,
 				items: items,
+				level: level
 			});
 			const updated = newList.save();
 			if(updated) return objectId;

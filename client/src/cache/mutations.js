@@ -54,6 +54,8 @@ export const DELETE_ITEM = gql`
 			assigned_to
 			completed
 			landmark
+			parRegId
+			subRegId
 		}
 	}
 `;
@@ -81,6 +83,7 @@ export const REORDER_ITEMS = gql`
 			due_date
 			assigned_to
 			completed
+			landmark
 		}
 	}
 `;

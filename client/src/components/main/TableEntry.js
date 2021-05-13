@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
-
+import { useHistory }		from "react-router-dom";
 const TableEntry = (props) => {
+    let history = useHistory();
     const { data } = props;
     let moveUpColor = ' topArrow-white';
     let moveDownColor = ' topArrow-white';
@@ -25,7 +26,7 @@ const TableEntry = (props) => {
     const [editingStatus, toggleStatusEdit] = useState(false);
     const [editingAssign, toggleAssignEdit] = useState(false);
     const [editingLandmark, toggleLandEdit] = useState(false);
-
+    //const [regionPageCount, toggleRegionPage] = useState(0);//reset to 0?
     const handleAssignEdit = (e) => {
         toggleAssignEdit(false);
         const newAssign = e.target.value ? e.target.value : 'No Assign.'
@@ -104,6 +105,14 @@ const TableEntry = (props) => {
             props.reorderItem(data._id, 1);
         }
     }
+    const switchScreens = (e) => {
+        console.log("switching screens!");
+        //console.log("subReg: ", data.subRegId);
+        let counter = props.pageCount+1;
+        if(counter < 1000){counter = 1000;}
+        history.push("/_regions", {_id: data.subRegId, regionCounter: counter, user: props.user,
+                                   par_id: data.parRegId})
+    };
     /**
      *  <WButton className = {`table-entry-buttons ${moveUpColor}`} onClick={handleMoveUp} wType="texted">
                         <i className="material-icons">expand_less</i>
@@ -125,6 +134,7 @@ const TableEntry = (props) => {
                         wType="outlined" barAnimation="solid" inputClass="table-input-class"
                     />
                     : <div className="table-text"
+                        onContextMenu={switchScreens}
                         onClick={() => toggleDescrEdit(!editingDescr)}
                     >{description}
                     </div>

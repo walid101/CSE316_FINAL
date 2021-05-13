@@ -1,6 +1,4 @@
 const { gql } = require('apollo-server');
-
-
 const typeDefs = gql `
 	type Todolist {
 		_id: String!
@@ -18,6 +16,8 @@ const typeDefs = gql `
 		assigned_to: String!
 		completed:  String!
 		landmark: String!
+		parRegId: String!
+		subRegId: String!
 	}
 	extend type Query {
 		getAllTodos: [Todolist]
@@ -55,6 +55,8 @@ const typeDefs = gql `
 		assigned_to: String
 		completed: String
 		landmark: String
+		parRegId: String
+		subRegId: String
 	}
 `;
 

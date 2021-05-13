@@ -14,6 +14,7 @@ const TableContents = (props) => {
                         editItem={props.editItem}
                         index={index}
                         activeList = {props.activeList}
+                        pageCount={props.pageCount}
                     />
                 ))
             }

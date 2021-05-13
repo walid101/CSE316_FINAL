@@ -32,7 +32,6 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [swapTopIndex, toggleTopIndex] 	= useState(-1);
-	const [runId, toggleRunId] 				= useState(0);	
 	const [newListMade, toggleNewList]		= useState(false);
 	const [runListId, toggleRunListId]		= useState(0);
 	const [showUpdate, toggleShowUpdate]	= useState(false);
@@ -89,87 +88,6 @@ const Homescreen = (props) => {
 		return retVal;
 	}
 
-
-	// Creates a default item and passes it to the backend resolver.
-	// The return id is assigned to the item, and the item is appended
-	// to the local cache copy of the active todolist. 
-	/*
-	const addItem = async () => {
-		let list = activeList;
-		const items = list.items;
-		//const lastID = items.length >= 1 ? items[items.length - 1].id + 1 : 0;
-		const lastID = runId;
-		toggleRunId(runId + 1);
-		//console.log("LAST IF IS: ", lastID);
-		const newItem = {
-			_id: '',
-			id: lastID,
-			description: 'No Description',
-			due_date: 'No Date',
-			assigned_to: "Not Assigned",
-			completed: false
-		};
-		let opcode = 1;
-		let itemID = newItem._id;
-		let listID = activeList._id;
-		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
-		props.tps.addTransaction(transaction);
-		tpsRedo();
-	};
-
-
-	const deleteItem = async (item, index) => {
-		let listID = activeList._id;
-		let itemID = item._id;
-		let opcode = 0;
-		let itemToDelete = {
-			_id: item._id,
-			id: item.id,
-			description: item.description,
-			due_date: item.due_date,
-			assigned_to: item.assigned_to,
-			completed: item.completed
-		}
-		let transaction = new UpdateListItems_Transaction(listID, itemID, itemToDelete, opcode, AddTodoItem, DeleteTodoItem, index);
-		props.tps.addTransaction(transaction);
-		tpsRedo();
-	};
-
-	const editItem = async (itemID, field, value, prev) => {
-		let flag = 0;
-		if (field === 'completed') flag = 1;
-		let listID = activeList._id;
-		let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
-		props.tps.addTransaction(transaction);
-		tpsRedo();
-
-	};
-
-	const reorderItem = async (itemID, dir) => {
-		//console.log(activeList.items);
-		let listID = activeList._id;
-		let transaction = new ReorderItems_Transaction(listID, itemID, dir, ReorderTodoItems);
-		props.tps.addTransaction(transaction);
-		tpsRedo();
-
-	};
-	//when the user clicks, threading -> multiple at once
-	const sortAllItems = async (colNum, clickNum) => {
-		if(activeList.items !== undefined)
-		{	
-			let listID = activeList._id;
-			let arr = [];
-			for(let i = 0; i<activeList.items.length; i++)
-			{
-				arr.push(activeList.items[i].id);
-			}
-			let transaction = new SortItems_Transaction(listID, colNum, clickNum, arr, SortItems);
-			props.tps.addTransaction(transaction);
-			//console.log(colNum);
-			tpsRedo();//do transaction
-		}	
-	}
-	*/
 	const clearTransactions = async () => {
 		props.tps.clearAllTransactions();
 	}
@@ -183,8 +101,10 @@ const Homescreen = (props) => {
 			name: 'Untitled',
 			owner: props.user._id,
 			items: [],
+			level: 0
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
+		console.log("ListId is: ", data.addTodolist);
 		setActiveList(list);
 		toggleNewList(true);
 		props.tps.clearAllTransactions();
@@ -223,6 +143,7 @@ const Homescreen = (props) => {
 	};
 	const handleSetActive = (id) => {
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
+		console.log("id is: ", id);
 		setActiveList(todo);
 	};
 
@@ -319,6 +240,7 @@ const Homescreen = (props) => {
 					{
 						activeList ?
 							<SidebarContents
+								_activeid={activeList._id}
 								todolists={todolists} activeid={activeList.id} auth={auth}
 								handleSetActive={handleSetActive} createNewList={createNewList}
 								undo={tpsUndo} redo={tpsRedo}

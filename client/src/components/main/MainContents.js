@@ -13,11 +13,15 @@ const MainContents = (props) => {
                 redo = {props.redo}
                 hasUndo={props.hasUndo}
                 hasRedo={props.hasRedo}
+                histCount={props.histCount}
+                parReg={props.parReg}
+
             />
             <TableContents
                 activeList={props.activeList}
                 deleteItem={props.deleteItem} reorderItem={props.reorderItem}
                 editItem={props.editItem}
+                pageCount={props.pageCount}
             />
         </div>
     );

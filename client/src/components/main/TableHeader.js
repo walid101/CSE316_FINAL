@@ -32,7 +32,12 @@ const TableHeader = (props) => {
     }
     const handleClose = (e) => {
         props.clearTransactions();
+        let counter = props.histCount;
+        if(counter == 0){counter = -1;}
+        console.log("parent Region: ", props.parReg);
+        //{_id:props.parReg, regionCounter: counter}
         history.goBack();
+        //history.push("/_regions", {_id: data.subRegId, regionCounter: counter, user: props.user})
     }
     return (
         <WRow className="table-header">  
