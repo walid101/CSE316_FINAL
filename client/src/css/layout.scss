@@ -217,3 +217,31 @@ svg {
 .cancel-btn {
     margin-top: 20px;
 }
+.Landmark_list {
+    margin-left: 150px;
+    margin-top: 40px;
+    background-color: rgb(235, 245, 255);
+    height: 520px;
+    width: 450px;
+    border-radius: 10px;
+}
+.Landmark_list_header {
+    background-color: rgb(139, 148, 193);
+    margin-bottom: 10px;
+    height: 60px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.L_header-title {
+    //margin-left: 50px;
+    padding-top: 15px;
+    text-align: center;
+    padding-right: 190px;
+}
+.Landmark_list_footer {
+    background-color: rgb(41, 71, 97);
+    height: 50px;
+    margin-top: 420px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

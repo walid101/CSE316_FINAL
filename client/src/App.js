@@ -5,6 +5,7 @@ import Login			from './components/Pages/LoginPage';
 import Signup			from './components/Pages/SignupPage';
 import Update 			from './components/Pages/UpdatePage';
 import Regions			from './components/Pages/RegionsPage';
+import Landmarks		from './components/Pages/LandmarkPage';
 import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
@@ -65,6 +66,13 @@ const App = () => {
 					name="_regions" 
 					render={() => 
 						<Regions tps={transactionStack} fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route 
+					path="/landmarks" 
+					name="landmarks" 
+					render={() => 
+						<Landmarks tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
 				<Route/>
