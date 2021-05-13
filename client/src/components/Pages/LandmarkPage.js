@@ -19,10 +19,16 @@ import WCHeader from 'wt-frontend/build/components/wcard/WCHeader';
 import WLFooter from 'wt-frontend/build/components/wlayout/WLFooter';
 const Landmarks = (props) => {
     let history = useHistory();
+    let location = useLocation();
     const setShowCreate = () => {}
     const setShowLogin = () => {}
     const setActiveList = () => {}
     const refetch = () => {}
+    let parentList = location.state.list; // must come from a table entry
+    let itemId = location.state.itemId; // must come from a table entry
+    let itemNum = 0;
+    for(let i = 0; i<parentList.items.length; i++){if(parentList.items[i]._id === itemId){itemNum=i;i=parentList.items.length;}}
+    //<WInput className="Landmark-input"></WInput>
 	return (
         // Replace div with WModal
     <WLayout wLayout="header">
@@ -50,17 +56,21 @@ const Landmarks = (props) => {
 
                 <WCFooter className = "Landmark_list_footer">
                     <i style={{fontSize: 34, paddingLeft: 15, paddingTop: 7, color: "#8b94c1"}} class="fa">&#xf036;</i>
-                    <i class="fa fa-plus" aria-hidden="true" style={{fontSize: 34, paddingLeft: 15, color: "#a7dda9"}}></i>
-                    <WInput className="Landmark-input"></WInput>
+                    <i class="fa fa-plus" aria-hidden="true" style={{fontSize: 34, paddingLeft: 15, color: "#a7dda9", cursor: "crosshair"}} onClick={()=>{console.log("Add Landmark!")}}></i>
+                    <WInput className="Landmark-input"
+                    autoFocus={true} placeHolder={"Enter a Landmark"} type='text'
+                    >
+
+                    </WInput>
                 </WCFooter>
             </WCard>
             <WCard className="land-right-side"></WCard>
             <div className = "land-right-statements">
-               <h2>Region Name: </h2>
-               <h2>Parent Region: </h2>
-               <h2>Region Capital: </h2>
-               <h2>Region Leader: </h2>
-               <h2># Of Subregions: </h2>
+               <h2>Region Name: {parentList.items[itemNum].description}</h2>
+               <h2>Parent Region: {parentList.name}</h2>
+               <h2>Region Capital: {parentList.items[itemNum].due_date}</h2>
+               <h2>Region Leader: {parentList.items[itemNum].completed}</h2>
+               <h2># Of Subregions: {parentList.items.length}</h2>
             </div>
         </WLMain>
     </WLayout>

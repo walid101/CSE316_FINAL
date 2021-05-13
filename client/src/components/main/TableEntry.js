@@ -113,6 +113,11 @@ const TableEntry = (props) => {
         history.push("/_regions", {_id: data.subRegId, regionCounter: counter, user: props.user,
                                    par_id: data.parRegId})
     };
+
+    const switchToLandScreen = (e) => {
+        console.log("switching to Landmark Screen!");
+        history.push("/landmarks", {list: props.activeList, itemId: data._id})
+    }
     /**
      *  <WButton className = {`table-entry-buttons ${moveUpColor}`} onClick={handleMoveUp} wType="texted">
                         <i className="material-icons">expand_less</i>
@@ -199,6 +204,7 @@ const TableEntry = (props) => {
                    :
                    <div className="table-text"
                         onClick={() => toggleLandEdit(!editingLandmark)}
+                        onContextMenu={switchToLandScreen}
                    >{landmark}
                    </div>
             }
