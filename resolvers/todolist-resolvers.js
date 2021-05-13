@@ -139,20 +139,18 @@ module.exports = {
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
 			let listItems = found.items;
-			/*
-			if(flag === 1) {
-				if(value === 'complete') { value = true; }
-				if(value === 'incomplete') { value = false; }
-			}
-			*/
+			let mainItem = listItems[0];
 			listItems.map(item => {
 				if(item._id.toString() === itemId) {	
-					//console.log("item field", field);
-					//console.log("new value: ", value);
 					item[field] = value;
+					mainItem = item;
 				}
 			});
-			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
+			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
+			if(field === "description")
+			{	
+				const updated = await Todolist.updateOne({_id: mainItem["subRegId"]}, {name: mainItem[field]});
+			}
 			if(updated) return (listItems);
 			else return (found.items);
 		},

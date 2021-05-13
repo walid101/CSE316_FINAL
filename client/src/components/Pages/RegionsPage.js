@@ -128,15 +128,6 @@ const Regions = (props) => {
 		toggleRunId(runId + 1);
 		//console.log("LAST IF IS: ", lastID);
 		//we need to create a new list? , when we delete Item, we need to delete a new List as well?
-		let newList = {
-			_id: '',
-			id: id,
-			name: 'Untitled',
-			owner: props.user._id,
-			items: [],
-			level: list.level + 1
-		}
-		const { data } = await AddTodolist({ variables: { todolist: newList }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		const newItem = {
 			_id: '',
 			id: lastID,
@@ -148,6 +139,15 @@ const Regions = (props) => {
 			parRegId: list._id,
 			subRegId: data.addTodolist
 		};
+		let newList = {
+			_id: '',
+			id: id,
+			name: newItem.description,
+			owner: props.user._id,
+			items: [],
+			level: list.level + 1
+		}
+		const { data } = await AddTodolist({ variables: { todolist: newList }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		let opcode = 1;
 		let itemID = newItem._id;
 		let listID = activeList._id;
@@ -182,7 +182,7 @@ const Regions = (props) => {
 	const editItem = async (itemID, field, value, prev) => {
 		let flag = 0;
 		//if (field === 'completed') flag = 1;
-        console.log("in EditItem!");
+        //console.log("in EditItem!");
 		let listID = activeList._id;
 		let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
 		props.tps.addTransaction(transaction);

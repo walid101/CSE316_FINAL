@@ -7,7 +7,7 @@ import NavbarOptions 		from '../navbar/NavbarOptions';
 import Logo 				from '../navbar/Logo';
 import { WNavbar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader} from 'wt-frontend';
-import { WModal, WMHeader, WButton, WInput, WCard } from 'wt-frontend';
+import { WModal, WMHeader, WButton, WInput, WCard} from 'wt-frontend';
 import WMFooter from 'wt-frontend/build/components/wmodal/WMFooter';
 import WLSide from 'wt-frontend/build/components/wlayout/WLSide';
 //import WRSide from 'wt-frontend/build/components/wlayout/WRSide';
@@ -25,7 +25,7 @@ const Landmarks = (props) => {
     const refetch = () => {}
 	return (
         // Replace div with WModal
-        <WLayout wLayout="header-rside">
+    <WLayout wLayout="header">
         <WLHeader>
             <WNavbar color="colored">
                 <ul>
@@ -42,11 +42,7 @@ const Landmarks = (props) => {
                 </ul>
             </WNavbar>
         </WLHeader>
-    
-        <WLSide color="colored">
-            <p>hi</p>
-        </WLSide>
-        <WLMain color="colored">
+        <WLMain color="colored land-main">
             <WCard WCard="header-content-footer" className="Landmark_list">
                 <WCHeader className="Landmark_list_header">
                     <h2 className="L_header-title">Region Landmarks</h2>
@@ -54,10 +50,20 @@ const Landmarks = (props) => {
 
                 <WCFooter className = "Landmark_list_footer">
                     <i style={{fontSize: 34, paddingLeft: 15, paddingTop: 7, color: "#8b94c1"}} class="fa">&#xf036;</i>
+                    <i class="fa fa-plus" aria-hidden="true" style={{fontSize: 34, paddingLeft: 15, color: "#a7dda9"}}></i>
+                    <WInput className="Landmark-input"></WInput>
                 </WCFooter>
             </WCard>
+            <WCard className="land-right-side"></WCard>
+            <div className = "land-right-statements">
+               <h2>Region Name: </h2>
+               <h2>Parent Region: </h2>
+               <h2>Region Capital: </h2>
+               <h2>Region Leader: </h2>
+               <h2># Of Subregions: </h2>
+            </div>
         </WLMain>
-        </WLayout>
+    </WLayout>
 	);
 }
 
