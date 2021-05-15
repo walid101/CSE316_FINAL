@@ -116,7 +116,8 @@ const TableEntry = (props) => {
 
     const switchToLandScreen = (e) => {
         console.log("switching to Landmark Screen!");
-        history.push("/landmarks", {list: props.activeList, itemId: data._id})
+        //console.log("Pushing item var which is: ", data);
+        history.push("/landmarks", {list: props.activeList, itemId: data._id, item: data})
     }
     /**
      *  <WButton className = {`table-entry-buttons ${moveUpColor}`} onClick={handleMoveUp} wType="texted">
@@ -193,19 +194,18 @@ const TableEntry = (props) => {
             </WCol>
             <WCol size="3">
             {
-                   editingLandmark || landmark === ''
+                   editingLandmark
                    ? <WInput
                        className='table-input' onBlur={handleLandEdit}
                         //{this.addEventListener()}
                         onKeyPress={checkEnterLand}
-                        autoFocus={true} defaultValue={landmark} type='text'
+                        autoFocus={true} defaultValue={landmark[0] !== ""?landmark[0]:"Input Landmarks"} type='text'
                         wType="outlined" barAnimation="solid" inputClass="table-input-class" 
                     />
                    :
                    <div className="table-text"
-                        onClick={() => toggleLandEdit(!editingLandmark)}
-                        onContextMenu={switchToLandScreen}
-                   >{landmark}
+                        onDoubleClick={switchToLandScreen}
+                   >{landmark[0] !== ""?landmark[0]:"Input Landmarks"}
                    </div>
             }
             </WCol>

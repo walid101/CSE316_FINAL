@@ -77,14 +77,15 @@ module.exports = {
 		addTodolist: async (_, args) => {
 			const { todolist } = args;
 			const objectId = new ObjectId();
-			const { id, name, owner, items, level } = todolist;
+			const { id, name, owner, items, level, parentId } = todolist;
 			const newList = new Todolist({
 				_id: objectId,
 				id: id,
 				name: name,
 				owner: owner,
 				items: items,
-				level: level
+				level: level,
+				parentId: parentId
 			});
 			const updated = newList.save();
 			if(updated) return objectId;
@@ -240,6 +241,14 @@ module.exports = {
 					listItems.sort(function compare(a, b) {
 						if(a.completed === false && b.completed !== false){return -1;}
 						if(b.completed === false && a.completed !== false){return 1;}
+						return 0;
+					});
+				}
+				if(colNum == 4)//this is landmark list [String]
+				{
+					listItems.sort(function compare(a, b) {
+						if(a.landmark[0] > b.landmark[0]){return -1;}
+						if(a.landmark[0] < b.landmark[0]){return 1;}
 						return 0;
 					});
 				}

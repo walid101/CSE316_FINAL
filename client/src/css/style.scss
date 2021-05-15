@@ -266,3 +266,15 @@ html, body {
     padding-bottom: 15px;
     padding-right: 35px;
 }
+
+.landmark-entry {
+    color: rgb(199, 255, 208);
+    transition: 0.1s ease-in-out;
+    height: 46px;
+    background-color: var(--light-green);
+}
+
+.landmark-entry:hover {
+    //background-color: var(--warm-white-transparent);
+    border: coral;
+}

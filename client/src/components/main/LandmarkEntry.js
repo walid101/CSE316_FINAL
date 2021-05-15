@@ -4,13 +4,16 @@ import { useHistory }		from "react-router-dom";
 const TableEntry = (props) => {
     let history = useHistory();
     const { data } = props;
-    const landmark = data.landmark;
+    const landmark = data//a landmark
     const [editingLandmark, toggleLandEdit] = useState(false);
-    const handleLandEdit = (e) => {
+    const handleLandEdit = (e) => { //add to main list
         toggleLandEdit(false);
+        /*
         const newLand = e.target.value ? e.target.value : 'No Landmark';
         const prevLand = description;
         props.editItem(data._id, 'landmark', newLand, prevLand);
+        */
+       console.log("not implemented yet");
     };
     const checkEnterLand = (e) => {
         if(e.key === "Enter")
@@ -18,6 +21,7 @@ const TableEntry = (props) => {
             handleLandEdit(e);
         }
     }
+    /*
     const switchScreens = (e) => {
         console.log("switching screens!");
         //console.log("subReg: ", data.subRegId);
@@ -25,10 +29,10 @@ const TableEntry = (props) => {
         if(counter < 1000){counter = 1000;}
         history.push("/_regions", {_id: data.subRegId, regionCounter: counter, user: props.user,
                                    par_id: data.parRegId})
-    };
+    };*/
     return (
-        <WRow className='table-entry'>
-            <WCol size="3">
+        <WRow className='landmark-entry'>
+            <WCol size="10">
             {
                    editingLandmark || landmark === ''
                    ? <WInput
@@ -41,7 +45,6 @@ const TableEntry = (props) => {
                    :
                    <div className="table-text"
                         onClick={() => toggleLandEdit(!editingLandmark)}
-                        onContextMenu={switchToLandScreen}
                    >{landmark}
                    </div>
             }

@@ -23,6 +23,9 @@ const todolistSchema = new Schema(
 			type: Number
 		},
 		items: [Item],
+		parentId: {
+			type: String
+		},
 	},
 	{ timestamps: true }
 );

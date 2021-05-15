@@ -7,6 +7,7 @@ const typeDefs = gql `
 		owner: String!
 		items: [Item]
 		level: Int!
+		parentId: String!
 	}
 	type Item {
 		_id: String!
@@ -15,7 +16,7 @@ const typeDefs = gql `
 		due_date: String!
 		assigned_to: String!
 		completed:  String!
-		landmark: String!
+		landmark: [String]
 		parRegId: String!
 		subRegId: String!
 	}
@@ -46,6 +47,7 @@ const typeDefs = gql `
 		owner: String
 		items: [ItemInput]
 		level: Int
+		parentId: String
 	}
 	input ItemInput {
 		_id: String
@@ -54,7 +56,7 @@ const typeDefs = gql `
 		due_date: String
 		assigned_to: String
 		completed: String
-		landmark: String
+		landmark: [String]
 		parRegId: String
 		subRegId: String
 	}

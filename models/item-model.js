@@ -28,7 +28,7 @@ const itemSchema = new Schema(
 			required: true
 		},
 		landmark: {
-			type: String,
+			type: [String],
 			required: true
 		},
 		parRegId: {

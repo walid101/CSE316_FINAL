@@ -14,7 +14,7 @@ const MainContents = (props) => {
                 hasUndo={props.hasUndo}
                 hasRedo={props.hasRedo}
                 histCount={props.histCount}
-                parReg={props.parReg}
+                activeList={props.activeList}
 
             />
             <TableContents

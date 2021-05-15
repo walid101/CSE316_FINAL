@@ -68,7 +68,7 @@ const Regions = (props) => {
         toggleRegionPage(regionPageCount+1);
     }
 	if(reloadPageCount < location.state.regionCounter &&
-	   location.state.regionCounter >= 0)//root 
+	   location.state.regionCounter >= 1000)//root 
 	{
 		console.log("Reload Region!");
         let list = todolists.find(list => list._id === location.state._id);
@@ -128,6 +128,16 @@ const Regions = (props) => {
 		toggleRunId(runId + 1);
 		//console.log("LAST IF IS: ", lastID);
 		//we need to create a new list? , when we delete Item, we need to delete a new List as well?
+		let newList = {
+			_id: '',
+			id: id,
+			name: "Input Name",
+			owner: props.user._id,
+			items: [],
+			level: list.level + 1,
+			parentId: activeList._id
+		}
+		const { data } = await AddTodolist({ variables: { todolist: newList }, refetchQueries: [{ query: GET_DB_TODOS }] });	
 		const newItem = {
 			_id: '',
 			id: lastID,
@@ -135,19 +145,10 @@ const Regions = (props) => {
 			due_date: 'Input Capital',
 			assigned_to: "Input Flag",
 			completed: "Input Leader",
-            landmark: "Input Landmark",
+            landmark: [""],
 			parRegId: list._id,
 			subRegId: data.addTodolist
 		};
-		let newList = {
-			_id: '',
-			id: id,
-			name: newItem.description,
-			owner: props.user._id,
-			items: [],
-			level: list.level + 1
-		}
-		const { data } = await AddTodolist({ variables: { todolist: newList }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		let opcode = 1;
 		let itemID = newItem._id;
 		let listID = activeList._id;

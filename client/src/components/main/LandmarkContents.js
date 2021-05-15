@@ -1,20 +1,25 @@
 import React        from 'react';
-import TableEntry   from './TableEntry';
-
+import LandmarkEntry   from './LandmarkEntry';
+import { WButton, WInput, WRow, WCol } from 'wt-frontend';
+import { useHistory }		from "react-router-dom";
 const LandmarkContents = (props) => {
     //console.log("activelist in tableContents: ", props.activeList);
-    const entries = props.activeList ? props.activeList.items : null;
+    const entries = props.items ? props.items.landmark : null;
+    /*deleteItem={props.deleteItem} reorderItem={props.reorderItem}
+    editItem={props.editItem} activeList = {props.activeList}*/
+    console.log("In LandmarkContents!!!");
+    console.log("Items is: ", props.items);
+    const filterFunc = (elem) =>
+    {
+        return elem!=="";
+    }
     return (
         entries ? <div className=' table-entries container-primary'>
             {
-                entries.map((entry, index) => (
+                entries.filter(filterFunc).map((entry, index) => (
                     <LandmarkEntry
                         data={entry} key={entry.id}
-                        deleteItem={props.deleteItem} reorderItem={props.reorderItem}
-                        editItem={props.editItem}
                         index={index}
-                        activeList = {props.activeList}
-                        pageCount={props.pageCount}
                     />
                 ))
             }

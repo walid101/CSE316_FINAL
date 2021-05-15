@@ -218,6 +218,7 @@ svg {
     margin-top: 20px;
 }
 .Landmark_list {
+    position: relative;
     margin-left: 200px;
     margin-top: 40px;
     background-color: rgb(235, 245, 255);
@@ -239,9 +240,11 @@ svg {
     padding-right: 190px;
 }
 .Landmark_list_footer {
+    position: absolute;
     background-color: rgb(41, 71, 97);
     height: 50px;
-    margin-top: 420px;
+    width: 100%;
+    top: 470px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -267,7 +270,7 @@ svg {
 
 .Landmark-input {
     position: absolute;
-    bottom: 30px;
+    bottom: 10px;
     padding-left: 120px;
     width: 400px;
 }
