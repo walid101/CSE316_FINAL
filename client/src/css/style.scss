@@ -75,6 +75,9 @@ html, body {
 .list-item-edit-input, .table-input {
     font-size: 1.125rem !important;
 }
+.table-input:hover {
+    background-color: lightseagreen;
+}
 
 .logo {
 	color: $primary-color;
@@ -268,13 +271,15 @@ html, body {
 }
 
 .landmark-entry {
-    color: rgb(199, 255, 208);
+    color: black;
     transition: 0.1s ease-in-out;
     height: 46px;
-    background-color: var(--light-green);
+    background-color: lightgray;
+    font-family: Roboto Mono, monospace;
+    font-weight: bold;
 }
 
 .landmark-entry:hover {
-    //background-color: var(--warm-white-transparent);
+    background-color: lightseagreen;
     border: coral;
 }

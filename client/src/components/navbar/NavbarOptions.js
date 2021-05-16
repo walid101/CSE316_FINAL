@@ -16,6 +16,7 @@ const LoggedIn = (props) => {
         }
         history.push("/home");
     };
+    let userName = props.user ? props.user.firstName : "Update";
     return (
         <>
             <WNavItem hoverAnimation="lighten">
@@ -25,7 +26,7 @@ const LoggedIn = (props) => {
             </WNavItem >
             <WNavItem hoverAnimation="lighten">
                 <WButton className="navbar-update-options" onClick={() => {history.push("\changeInfo")}} wType="texted" hoverAnimation="text-primary">
-                    Update
+                    {userName}
                 </WButton>
             </WNavItem>
         </>

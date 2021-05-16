@@ -6,21 +6,17 @@ const TableEntry = (props) => {
     const { data } = props;
     const landmark = data//a landmark
     const [editingLandmark, toggleLandEdit] = useState(false);
-    const handleLandEdit = (e) => { //add to main list
-        toggleLandEdit(false);
-        /*
-        const newLand = e.target.value ? e.target.value : 'No Landmark';
-        const prevLand = description;
-        props.editItem(data._id, 'landmark', newLand, prevLand);
-        */
-       console.log("not implemented yet");
-    };
     const checkEnterLand = (e) => {
         if(e.key === "Enter")
         {
             handleLandEdit(e);
         }
     }
+    const handleLandEdit = (e) => { //add to main list
+        toggleLandEdit(false);
+        props.editLandmark(e.target.value, props.index);
+        //console.log("not implemented yet");
+    };
     /*
     const switchScreens = (e) => {
         console.log("switching screens!");
@@ -32,7 +28,7 @@ const TableEntry = (props) => {
     };*/
     return (
         <WRow className='landmark-entry'>
-            <WCol size="10">
+            <WCol size="11">
             {
                    editingLandmark || landmark === ''
                    ? <WInput
@@ -50,7 +46,7 @@ const TableEntry = (props) => {
             }
             </WCol>
             <WCol size="1">
-                    <WButton className="table-entry-buttons button-group" onClick={() => props.deleteItem(data, props.index)} wType="texted">
+                    <WButton style={{color: "black"}} onClick={() => props.deleteLandmark(landmark, props.index)} wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
             </WCol>

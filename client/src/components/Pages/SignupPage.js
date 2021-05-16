@@ -65,6 +65,7 @@ const CreateAccount = (props) => {
                         fetchUser={props.fetchUser} auth={auth} 
                         setShowCreate={setShowCreate} setShowLogin={setShowLogin}
                         refetchTodos={refetch} setActiveList={setActiveList}
+						user={null}
                     />
                 </ul>
             </WNavbar>

@@ -59,7 +59,7 @@ const Homescreen = (props) => {
 	if(data) { todolists = data.getAllTodos; }
 
 	const auth = props.user === null ? false : true;
-
+	console.log("USER: ", props.user);
 	const refetchTodos = async (refetch) => {
 		const { loading, error, data } = await refetch();
 		if (data) {
@@ -230,8 +230,8 @@ const Homescreen = (props) => {
 							setShowUpdate={setShowUpdate} setShowDelete={setShowDelete}
 							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
 							refetchTodos={refetch} setActiveList={setActiveList}
-							user={props.user}
 							refetchNum = {refetchCount}
+							user={props.user}
 						/>
 					</ul>
 				</WNavbar>

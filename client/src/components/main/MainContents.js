@@ -22,6 +22,7 @@ const MainContents = (props) => {
                 deleteItem={props.deleteItem} reorderItem={props.reorderItem}
                 editItem={props.editItem}
                 pageCount={props.pageCount}
+                histCount={props.histCount}
             />
         </div>
     );

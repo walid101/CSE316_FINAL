@@ -74,6 +74,20 @@ export const UPDATE_ITEM_FIELD = gql`
 	}
 `;
 
+export const UPDATE_LANDMARK_FIELD = gql`
+mutation UpdateLandmarkField($_id: String!, $itemId: String!, $field: String!, $value: [String], $flag: Int!) {
+	updateLandmarkField(_id: $_id, itemId: $itemId, field: $field, value: $value, flag: $flag) {
+		_id
+		id
+		description
+		due_date
+		assigned_to
+		completed
+		landmark
+	}
+}
+`;
+
 export const REORDER_ITEMS = gql`
 	mutation ReorderItems($_id: String!, $itemId: String!, $direction: Int!) {
 		reorderItems(_id: $_id, itemId: $itemId, direction: $direction) {

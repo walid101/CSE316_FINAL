@@ -134,6 +134,29 @@ module.exports = {
 									 field,as it uses a boolean instead of a string
 			@returns {array} the updated item array on success, or the initial item array on failure
 		**/
+		updateLandmarkField: async (_, args) => {
+			const { _id, itemId, field,  flag } = args;
+			let { value } = args
+			const listId = new ObjectId(_id);
+			const found = await Todolist.findOne({_id: listId});
+			let listItems = found.items;
+			let mainItem = listItems[0];
+			listItems.map(item => {
+				if(item._id.toString() === itemId) {	
+					item[field] = value;
+					mainItem = item;
+				}
+			});
+			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
+			if(updated) return (listItems);
+			else return (found.items);
+		},
+		/** 
+			@param	 {object} args - a todolist objectID, an item objectID, field, and
+									 update value. Flag is used to interpret the completed 
+									 field,as it uses a boolean instead of a string
+			@returns {array} the updated item array on success, or the initial item array on failure
+		**/
 		updateItemField: async (_, args) => {
 			const { _id, itemId, field,  flag } = args;
 			let { value } = args

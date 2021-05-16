@@ -31,6 +31,7 @@ const typeDefs = gql `
 		deleteTodolist(_id: String!): Boolean
 		updateTodolistField(_id: String!, field: String!, value: String!): String
 		updateItemField(itemId: String!, _id: String!, field: String!, value: String!, flag: Int!): [Item]
+		updateLandmarkField(itemId: String!, _id: String!, field: String!, value: [String], flag: Int!): [Item]
 		reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
 		sortItems(_id: String!, colNum: Int!, clickNum: Int!, prevList: [Int], execute: Int!): [Item]
 		swap_top(swapId: Int): [Int!]

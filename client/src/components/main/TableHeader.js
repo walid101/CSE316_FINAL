@@ -34,9 +34,13 @@ const TableHeader = (props) => {
         props.clearTransactions();
         //{_id:props.parReg, regionCounter: counter}
         //history.goBack();
-        let counter = props.histCount-1;
-        console.log("go back counter: ", counter);
-        history.push("/_regions", {_id: props.activeList.parentId, regionCounter: counter, user: props.user})
+        if(props.activeList.level < 1){console.log("PUSH TO MAPS!");history.push("/maps");}
+        else
+        {
+            let counter = props.histCount-1;
+            history.push("/_regions", {_id: props.activeList.parentId, regionCounter: counter, user: props.user})
+        }
+        
     }
     return (
         <WRow className="table-header">  

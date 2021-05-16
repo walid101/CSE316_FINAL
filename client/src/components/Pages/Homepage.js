@@ -5,6 +5,7 @@ import NavbarOptions 					from '../navbar/NavbarOptions';
 import Login 							from '../modals/Login';
 import CreateAccount 					from '../modals/CreateAccount';
 import { GET_DB_TODOS } 				from '../../cache/queries';
+import { GET_DB_USER } 					from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
@@ -76,6 +77,7 @@ const Homepage = (props) => {
 							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
 							refetchTodos={refetch} setActiveList={setActiveList}
 							refetchNum={0}
+							user={props.user}
 						/>
 					</ul>
 				</WNavbar>

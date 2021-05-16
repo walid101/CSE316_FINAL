@@ -113,11 +113,11 @@ const TableEntry = (props) => {
         history.push("/_regions", {_id: data.subRegId, regionCounter: counter, user: props.user,
                                    par_id: data.parRegId})
     };
-
+    const editItem = (itemID, field, value, prev) => {/*props.editItem(itemID, field, value, prev);*/}
     const switchToLandScreen = (e) => {
         console.log("switching to Landmark Screen!");
         //console.log("Pushing item var which is: ", data);
-        history.push("/landmarks", {list: props.activeList, itemId: data._id, item: data})
+        history.push("/landmarks", {list: props.activeList, itemId: data._id, item: data, histCount: props.histCount})
     }
     /**
      *  <WButton className = {`table-entry-buttons ${moveUpColor}`} onClick={handleMoveUp} wType="texted">

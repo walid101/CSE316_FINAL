@@ -7,8 +7,7 @@ const LandmarkContents = (props) => {
     const entries = props.items ? props.items.landmark : null;
     /*deleteItem={props.deleteItem} reorderItem={props.reorderItem}
     editItem={props.editItem} activeList = {props.activeList}*/
-    console.log("In LandmarkContents!!!");
-    console.log("Items is: ", props.items);
+    //console.log("Items is: ", props.items);
     const filterFunc = (elem) =>
     {
         return elem!=="";
@@ -19,7 +18,8 @@ const LandmarkContents = (props) => {
                 entries.filter(filterFunc).map((entry, index) => (
                     <LandmarkEntry
                         data={entry} key={entry.id}
-                        index={index}
+                        index={index} deleteLandmark={props.deleteLandmark}
+                        editLandmark={props.editLandmark}
                     />
                 ))
             }

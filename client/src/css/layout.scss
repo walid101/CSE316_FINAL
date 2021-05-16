@@ -274,3 +274,27 @@ svg {
     padding-left: 120px;
     width: 400px;
 }
+
+.landmark-header-buttons {
+    position: absolute;
+    left: 93%;
+    padding-top: 10px;
+}
+
+.undo-land-styled {
+    transform: rotate(-180deg);
+}
+.redo-land-styled {
+    transform: rotate(-180deg);
+}
+
+.undo-land {
+    position: absolute;
+    right: 83%;
+    top: 7%;
+}
+.redo-land {
+    position: absolute;
+    right: 78%;
+    top: 7%
+}
