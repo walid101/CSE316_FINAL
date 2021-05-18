@@ -8,6 +8,7 @@ const typeDefs = gql `
 		items: [Item]
 		level: Int!
 		parentId: String!
+		path: [String]
 	}
 	type Item {
 		_id: String!
@@ -33,7 +34,7 @@ const typeDefs = gql `
 		updateItemField(itemId: String!, _id: String!, field: String!, value: String!, flag: Int!): [Item]
 		updateLandmarkField(itemId: String!, _id: String!, field: String!, value: [String], flag: Int!): [Item]
 		reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
-		sortItems(_id: String!, colNum: Int!, clickNum: Int!, prevList: [Int], execute: Int!): [Item]
+		sortItems(_id: String!, colNum: Int!, clickNum: Int!, prevList: [String], execute: Int!): [Item]
 		swap_top(swapId: Int): [Int!]
 	}
 	input FieldInput {
@@ -49,6 +50,7 @@ const typeDefs = gql `
 		items: [ItemInput]
 		level: Int
 		parentId: String
+		path: [String]
 	}
 	input ItemInput {
 		_id: String

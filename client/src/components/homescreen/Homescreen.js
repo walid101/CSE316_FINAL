@@ -102,7 +102,8 @@ const Homescreen = (props) => {
 			owner: props.user._id,
 			items: [],
 			level: 0,
-			parentId: "-1" //no parent for root level
+			parentId: "-1", //no parent for root level
+			path: ["Untitled"],
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		console.log("ListId is: ", data.addTodolist);

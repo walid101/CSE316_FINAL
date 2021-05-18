@@ -31,6 +31,7 @@ export const GET_DB_TODOS = gql`
 			}
 			level
 			parentId
+			path
 		}
 	}
 `;

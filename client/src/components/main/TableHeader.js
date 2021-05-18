@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import { WButton, WRow, WCol } from 'wt-frontend';
+import WInput from 'wt-frontend/build/components/winput/WInput';
 
 const TableHeader = (props) => {
     let history = useHistory();
@@ -42,6 +43,27 @@ const TableHeader = (props) => {
         }
         
     }
+    const checkEnter = (e) => {
+        if(e.key === "Enter")
+        {
+            //Here we edit parent if it is possible
+            let newParent = e.target.value;
+            let newParentList = props.todolists.find(list => list.name === newParent);//find name
+            let exists = newParentList ? true : false;
+            if(!exists)
+            {
+                alert("That parent Does not exist!");
+            }
+            else if(props.activeList.level > newParentList.level)
+            {
+                alert("Please Select a Parent Region With a Higher Level than: ", props.activeList.level);
+            }
+            else
+            {
+                props.updateList(props.activeList_id, "parentId", newParentList._id, props.activeList_id);
+            }
+        }
+    }
     return (
         <WRow className="table-header">  
             <WCol size = "2">
@@ -55,7 +77,12 @@ const TableHeader = (props) => {
                         <i className="material-icons add-btn">add_box</i>
                 </WButton>
             </WCol>
-            <WCol size = "9"></WCol>
+            <WCol size = "5">
+                <WInput className={"parentEdit-Input"} onKeyPress={checkEnter} defaultValue={props.activeList.name}>
+                    
+                </WInput>
+            </WCol>
+            <WCol size = "4"></WCol>
             <WCol size="1">
                 <div className="table-header-buttons">
                     <WButton onClick={handleClose} wType="texted" className={`${buttonStyle}`}>

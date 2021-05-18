@@ -15,7 +15,8 @@ const MainContents = (props) => {
                 hasRedo={props.hasRedo}
                 histCount={props.histCount}
                 activeList={props.activeList}
-
+                todolists={props.todolists}
+                updateList={props.updateList}
             />
             <TableContents
                 activeList={props.activeList}
@@ -23,6 +24,7 @@ const MainContents = (props) => {
                 editItem={props.editItem}
                 pageCount={props.pageCount}
                 histCount={props.histCount}
+                caretPos={props.caretPos} handleCaret={props.handleCaret}
             />
         </div>
     );

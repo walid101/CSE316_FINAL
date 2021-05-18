@@ -77,7 +77,7 @@ module.exports = {
 		addTodolist: async (_, args) => {
 			const { todolist } = args;
 			const objectId = new ObjectId();
-			const { id, name, owner, items, level, parentId } = todolist;
+			const { id, name, owner, items, level, parentId, path } = todolist;
 			const newList = new Todolist({
 				_id: objectId,
 				id: id,
@@ -85,9 +85,10 @@ module.exports = {
 				owner: owner,
 				items: items,
 				level: level,
-				parentId: parentId
+				parentId: parentId,
+				path: path
 			});
-			const updated = newList.save();
+			const updated = await newList.save();
 			if(updated) return objectId;
 			else return ('Could not add todolist');
 		},
@@ -125,6 +126,17 @@ module.exports = {
 			const { field, value, _id } = args;
 			const objectId = new ObjectId(_id);
 			const updated = await Todolist.updateOne({_id: objectId}, {[field]: value});
+			if(field === "name")
+			{
+				//update path as well
+				let currList =  await Todolist.findOne({_id: _id});
+				console.log("CurrList: ", currList);
+				let prevPath = currList.path;
+				let newPath = prevPath;
+				newPath[0] = value;
+				console.log("new Path: ", newPath);
+				const updateRootName = await Todolist.updateOne({_id: objectId}, {path : newPath});
+			}
 			if(updated) return value;
 			else return "";
 		},
@@ -174,6 +186,12 @@ module.exports = {
 			if(field === "description")
 			{	
 				const updated = await Todolist.updateOne({_id: mainItem["subRegId"]}, {name: mainItem[field]});
+				const foundMain = await Todolist.findOne({_id: mainItem["subRegId"]});
+				let prevPath = foundMain.path; 
+				let newPath = prevPath;
+				newPath[newPath.length-1] = mainItem[field];
+				const updatePath = await Todolist.updateOne({_id: mainItem["subRegId"]}, {path: newPath});
+
 			}
 			if(updated) return (listItems);
 			else return (found.items);
@@ -214,20 +232,19 @@ module.exports = {
 		**/
 		sortItems: async (_, args) => {//done
 			const { _id, colNum, clickNum, prevList, execute} = args;
-			console.log(prevList);
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
 			let listItems = found.items;
 			let preList = new Array(prevList.length);
-			console.log(prevList);
 			if(execute === 0)//THIS IS UNDO SETTER
 			{
 				for(let i = 0; i<prevList.length; i++)
 				{
 					for(let j = 0; j<prevList.length; j++)
 					{
-						if(listItems[j].id === prevList[i])//found the item -> multi-id items?
+						if(listItems[j]._id == prevList[i])//found the item -> multi-id items?
 						{
+							//console.log("MATCHED!");
 							preList[i] = listItems[j];
 							j = prevList.length;
 						}

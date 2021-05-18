@@ -38,6 +38,7 @@ html {
     padding-bottom: 12px;
     padding-top: 12px;
     cursor: pointer;
+    align-items: center;
 }
 
 .table {
@@ -50,6 +51,7 @@ html {
 
 .table-entries {
     overflow-y: scroll;
+    //overflow-y:auto;
 }
 
 .table-header {
@@ -297,4 +299,29 @@ svg {
     position: absolute;
     right: 78%;
     top: 7%
+}
+
+.prev-reg-layout {
+    position: absolute;
+    left: 0;
+    top: 42%;
+    width: 700px;
+}
+
+.next-reg-layout {
+    position: absolute;
+    left: 48%;
+    top: 42%;
+    width: 700px;
+    transform: rotate(180deg);
+}
+
+.flag-layout {
+    padding-top: 6px;
+}
+
+.parentEdit-Input {
+    position: absolute;
+    padding-left: 790px;
+    padding-top: 10px;
 }

@@ -49,7 +49,14 @@ const Landmarks = (props) => {
     let itemNum = 0;
     for(let i = 0; i<parentList.items.length; i++){if(parentList.items[i]._id === itemId){itemNum=i;i=parentList.items.length;}}
     //<WInput className="Landmark-input"></WInput>
-    
+    let itemsLen = parentList.items.length;
+    console.log("item[0] : ", parentList.items[0]._id);
+    let prevRegStyle = (itemId !== parentList.items[0]._id) ? "prev-reg-style" : "prev-reg-style-disabled"; //alt - "prev-reg-style-disabled"
+    let nextRegStyle = (itemId !== parentList.items[itemsLen-1]._id) ? "next-reg-style" : "next-reg-style-disabled";
+
+    let prevAllowed = (itemId !== parentList.items[0]._id) ? true : false;
+    let nextAllowed = (itemId !== parentList.items[itemsLen-1]._id) ? true : false;
+    if(parentList === null){prevRegStyle = "prev-reg-style-disabled";nextRegStyle = "next-reg-style-disabled";}//disabled
     const refetchTodos = async (refetch) => {
 		const { loading, error, data } = await refetch();
 		if (data) {
@@ -162,6 +169,25 @@ const Landmarks = (props) => {
             history.push("/landmarks", {list: parentList, itemId: itemId, item: passItem, histCount: location.state.histCount});
         }
     }
+
+    const nextRegion = (e) => 
+    {
+        console.log("NEXT REGION ALLOW? ", nextAllowed);
+        if(nextAllowed === true)
+        {
+            console.log("NEXT REGION!");
+            history.push("/landmarks", {list: parentList, itemId: parentList.items[itemNum+1]._id, item: parentList.items[itemNum+1], histCount: location.state.histCount})
+        }
+    }
+
+    const prevRegion = (e) => {
+        console.log("PREV REGION ALLOW? ", prevAllowed);
+        if(prevAllowed === true)
+        {
+            console.log("PREV REGION!");
+            history.push("/landmarks", {list: parentList, itemId: parentList.items[itemNum-1]._id, item: parentList.items[itemNum-1], histCount: location.state.histCount})
+        }
+    }
 	return (
             // Replace div with WModal
         <WLayout wLayout="header">
@@ -194,6 +220,12 @@ const Landmarks = (props) => {
                         <i className="material-icons close-btn">close</i>
                     </WButton>
                 </div>
+                <WButton className={`prev-reg-layout "`} wType="texted" clickAnimation="ripple-light" shape="rounded">
+                    <i style={{fontSize: 80}} onClick={prevRegion} className={`material-icons ${prevRegStyle}`}>keyboard_backspace</i>
+                </WButton> 
+                <WButton className={`next-reg-layout "`} wType="texted" clickAnimation="ripple-light" shape="rounded">
+                    <i style={{fontSize: 80}} onClick={nextRegion} className={`material-icons ${nextRegStyle}`}>keyboard_backspace</i>
+                </WButton> 
                 <WCard WCard="header-content-footer" className="Landmark_list">
                     <WCHeader className="Landmark_list_header">
                         <h2 className="L_header-title">Region Landmarks</h2>

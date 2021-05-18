@@ -16,6 +16,7 @@ const TableContents = (props) => {
                         activeList = {props.activeList}
                         pageCount={props.pageCount}
                         histCount={props.histCount}
+                        caretPos={props.caretPos} handleCaret={props.handleCaret}
                     />
                 ))
             }

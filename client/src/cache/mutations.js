@@ -102,7 +102,7 @@ export const REORDER_ITEMS = gql`
 	}
 `;
 export const SORT_ITEMS = gql`
-	mutation SortItems($_id: String!, $colNum: Int!, $clickNum: Int!, $prevList: [Int], $execute: Int!) {
+	mutation SortItems($_id: String!, $colNum: Int!, $clickNum: Int!, $prevList: [String], $execute: Int!) {
 		sortItems(_id: $_id, colNum: $colNum, clickNum: $clickNum, prevList: $prevList, execute: $execute) {
 			_id
 			id

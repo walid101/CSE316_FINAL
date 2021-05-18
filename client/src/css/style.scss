@@ -277,9 +277,30 @@ html, body {
     background-color: lightgray;
     font-family: Roboto Mono, monospace;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .landmark-entry:hover {
     background-color: lightseagreen;
     border: coral;
+}
+
+.prev-reg-style {
+    color: black;
+    font-size: 30;
+}
+
+.prev-reg-style-disabled {
+    color: rgb(87, 93, 105);
+    font-size: 30;
+}
+
+.next-reg-style {
+    color: black;
+    font-size: 30;
+}
+
+.next-reg-style-disabled {
+    color: rgb(87, 93, 105);
+    font-size: 30;
 }

@@ -44,8 +44,10 @@ const Regions = (props) => {
 	const [reloadPageCount, toggleReloadPage] = useState(0);
 	const [reloadHistoryCount, toggleReloadHistory] = useState(0);
 	const [parReg, toggleParReg]					= useState("");
+	const [caretPos, toggleCaretPos]				= useState([-1,-1]);//2D array x,y , initially -1,-1
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
+	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD);
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
 	const [SortItems] 				= useMutation(mutations.SORT_ITEMS);
@@ -97,6 +99,11 @@ const Regions = (props) => {
 			}
         }
 	}
+	const updateListField = async (_id, field, value, prev) => {
+		let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateTodolistField);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+	};
 	const tpsUndo = async () => {
 		const retVal = await props.tps.undoTransaction();
 		refetchTodos(refetch);
@@ -135,7 +142,8 @@ const Regions = (props) => {
 			owner: props.user._id,
 			items: [],
 			level: list.level + 1,
-			parentId: activeList._id
+			parentId: activeList._id,
+			path: list.path.concat(["Input Name"])
 		}
 		const { data } = await AddTodolist({ variables: { todolist: newList }, refetchQueries: [{ query: GET_DB_TODOS }] });	
 		const newItem = {
@@ -185,10 +193,13 @@ const Regions = (props) => {
 		//if (field === 'completed') flag = 1;
         //console.log("in EditItem!");
 		let listID = activeList._id;
-		let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
-		props.tps.addTransaction(transaction);
-		tpsRedo();
-
+		if(value != prev)
+		{
+			let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
+			props.tps.addTransaction(transaction);
+			tpsRedo();
+		}
+		else{forceUpdate();}
 	};
 
 	const reorderItem = async (itemID, dir) => {
@@ -207,7 +218,7 @@ const Regions = (props) => {
 			let arr = [];
 			for(let i = 0; i<activeList.items.length; i++)
 			{
-				arr.push(activeList.items[i].id);
+				arr.push(activeList.items[i]._id);
 			}
 			let transaction = new SortItems_Transaction(listID, colNum, clickNum, arr, SortItems);
 			props.tps.addTransaction(transaction);
@@ -252,6 +263,11 @@ const Regions = (props) => {
 		toggleShowDelete(!showDelete)
 	};
 
+	const handleCaret = (arr) => {
+		console.log("Handling Caret!");
+		toggleCaretPos(arr);
+		console.log(caretPos);
+	};
 
 	const handleKeyPress = (event) => {
 		if(event.key === "Control")
@@ -295,6 +311,7 @@ const Regions = (props) => {
                         activeList ? 
                                 <div className="container-secondary">
                                     <MainContents
+										caretPos={caretPos} handleCaret={handleCaret}
 										parReg={parReg}
                                         clearTransactions={clearTransactions}
                                         addItem={addItem} deleteItem={deleteItem}
@@ -306,6 +323,8 @@ const Regions = (props) => {
                                         activeList={activeList}
 										pageCount={reloadPageCount}
 										histCount={reloadHistoryCount}
+										todolists={todolists}
+										updateList={updateListField}
                                     />
                                 </div>
                             :
