@@ -130,11 +130,9 @@ module.exports = {
 			{
 				//update path as well
 				let currList =  await Todolist.findOne({_id: _id});
-				console.log("CurrList: ", currList);
 				let prevPath = currList.path;
 				let newPath = prevPath;
 				newPath[0] = value;
-				console.log("new Path: ", newPath);
 				const updateRootName = await Todolist.updateOne({_id: objectId}, {path : newPath});
 			}
 			if(updated) return value;

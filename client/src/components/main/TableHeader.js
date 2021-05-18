@@ -60,7 +60,7 @@ const TableHeader = (props) => {
             }
             else
             {
-                props.updateList(props.activeList_id, "parentId", newParentList._id, props.activeList_id);
+                props.updateList(props.activeList._id, "parentId", newParentList._id, props.activeList_id);
             }
         }
     }
